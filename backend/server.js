@@ -1,8 +1,16 @@
 import http from "http";
 import express from "express";
 import cors from "cors";
-const app = express();
+import { connection } from "./database/connection.js";
+import { router } from "./routes/route.js";
 
+connection();
+
+const app = express();
+const port = 5050 || process.env.PORT
+
+app.use(express.json());
+app.use('/', router);
 app.use(
     cors({
         origin: "*",
@@ -197,10 +205,8 @@ const object = {
     ],
 };
 
-app.get("/", (req, res) => {
-    res.status(200).json(object);
-});
+app.listen(port, () => {
+    console.log(`Server running on port on ${port}`)
+})
 
-http.createServer(app).listen(8000, () => {
-    console.log("listening on 8000");
-});
+

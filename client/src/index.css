@@ -22,3 +22,9 @@ body {
 ::-webkit-scrollbar-thumb {
     background-color: #00000088;
 }
+
+@media (max-width: 600px) {
+    ::-webkit-scrollbar {
+        display: none;
+    }
+}

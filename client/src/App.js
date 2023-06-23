@@ -4,7 +4,7 @@ import Login from "./components/Login/Login.jsx";
 import Header from "./components/Header/Header.jsx";
 import Navbar from "./components/Navbar/Navbar.jsx";
 import Signup from "./components/Signup/Signup.jsx";
-import Dashboard from "./components/Dashboard/Dashboard.jsx";
+import Dashboard, { loadProduct } from "./components/Dashboard/Dashboard.jsx";
 
 const router = createBrowserRouter([
     {
@@ -16,7 +16,7 @@ const router = createBrowserRouter([
             </>
         ),
         children: [
-            { index: true, element: <Dashboard /> },
+            { index: true, loader: loadProduct, element: <Dashboard /> },
             { path: "/products" },
             { path: "/chats" },
             { path: "/profile" },

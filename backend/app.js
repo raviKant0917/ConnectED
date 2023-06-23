@@ -4,6 +4,8 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
+const allProductsRouter = require('./routes/allProductRoutes');
+const productRouter = require('./routes/productRoutes');
 
 const app = express();
 
@@ -13,7 +15,11 @@ app.use(mongoSanitize());
 app.use(xss());
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({origin: "*"}));
+app.use(cors({
+    origin: "*",
+    credentials:true
+}));
+app.use('/public',express.static('public'));
 
 const object = {
     boys: [
@@ -208,6 +214,7 @@ const object = {
 app.get("/", (req, res) => {
     res.status(200).json(object);
 });
-
+app.use('/products',allProductsRouter);
+app.use('/product',productRouter);
 
 module.exports = app;

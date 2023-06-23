@@ -9,12 +9,12 @@ const productSchema = mongoose.Schema({
         type:String,
         required:[true,'A product must have a description']
     },
+    rent:Boolean,
     seller:{
         type:mongoose.Schema.ObjectId,
         ref:'User',
         required:[true,'A product must have a seller']
     },
-    rent:Boolean,
     images:{
         type:[String],
         validate:[function(){

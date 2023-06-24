@@ -6,10 +6,6 @@ const catchAsync = require('./../utils/catchAsyncError');
 
 const multerStorage = multer.memoryStorage();
 
-const upload = multer({
-    storage:multerStorage,
-    fileFilter:multerFilter
-});
 
 const multerFilter = (req,file,cb)=>{
     if(file.mimetype.startsWith('image')){
@@ -20,6 +16,10 @@ const multerFilter = (req,file,cb)=>{
     }
 }
 
+const upload = multer({
+    storage:multerStorage,
+    fileFilter:multerFilter
+});
 exports.uploadProductImages = upload.fields([
     {name:'images',maxCount:5}
 ]);

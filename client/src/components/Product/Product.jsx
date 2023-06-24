@@ -1,27 +1,9 @@
 import React, { useState } from "react";
 import "./Products.scss";
 import { useLoaderData } from "react-router-dom";
-import { AiOutlineStar, AiTwotoneStar } from "react-icons/ai";
+import Star from "./Star";
 import Error from "../Error/Error";
-
-const Star = ({ n, set, rating }) => {
-    return (
-        <>
-            <AiOutlineStar
-                style={rating >= n && { display: "none" }}
-                onClick={() => {
-                    set(n);
-                }}
-            />
-            <AiTwotoneStar
-                style={rating < n && { display: "none" }}
-                onClick={() => {
-                    set(n);
-                }}
-            />
-        </>
-    );
-};
+import Review from "./Review";
 
 const Product = () => {
     const data = useLoaderData();
@@ -33,6 +15,11 @@ const Product = () => {
         <div className="product">
             <img src={data.image} alt={data.product_name} />
             <h1>{data.product_name}</h1>
+            <div className="buy">
+                <button>Buy Now</button>
+                <div>OR</div>
+                <button>Chat with Owner</button>
+            </div>
 
             <div className="owner">
                 <label>Owner Name: </label>&nbsp;&nbsp;&nbsp;
@@ -67,6 +54,7 @@ const Product = () => {
                 <br />
                 <button>Submit</button>
             </div>
+            <Review reviews={data.reviews} />
         </div>
     );
 };
@@ -76,6 +64,7 @@ export const loadProduct = async ({ params }) => {
         return {
             id: 1,
             image: "https://pyxis.nymag.com/v1/imgs/bdc/eae/6151a14aa22cce4d1797b3e3b54c749eaa-Phillips-Norelco.2x.rdeep-vertical.w245.jpg",
+            price: 500,
             owner_name: "nikhil",
             product_name: "trimmer",
             hostel_name: "Neelkanth Boys Hostel",
@@ -84,6 +73,56 @@ export const loadProduct = async ({ params }) => {
             rating: "4.2",
             rent: true,
             available: false,
+            reviews: [
+                {
+                    image: "https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80",
+                    owner_name: "Selena Watson",
+                    rating: 4,
+                    review: "Nice Product",
+                },
+                {
+                    image: "https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80",
+                    owner_name: "Selena Watson",
+                    rating: 4,
+                    review: "Nice Product",
+                },
+                {
+                    image: "https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80",
+                    owner_name: "Selena Watson",
+                    rating: 4,
+                    review: "Nice Product",
+                },
+                {
+                    image: "https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80",
+                    owner_name: "Selena Watson",
+                    rating: 4,
+                    review: "Nice Product",
+                },
+                {
+                    image: "https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80",
+                    owner_name: "Selena Watson",
+                    rating: 4,
+                    review: "Nice Product",
+                },
+                {
+                    image: "https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80",
+                    owner_name: "Selena Watson",
+                    rating: 4,
+                    review: "Nice Product",
+                },
+                {
+                    image: "https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80",
+                    owner_name: "Selena Watson",
+                    rating: 4,
+                    review: "Nice Product",
+                },
+                {
+                    image: "https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80",
+                    owner_name: "Selena Watson",
+                    rating: 4,
+                    review: "Nice Product",
+                },
+            ],
         };
     }
     return null;

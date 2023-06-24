@@ -2,7 +2,7 @@
 
     position: absolute;
     right: 30px;
-    width: 80%;
+    width: calc(100% - 300px);
 
     #autocomplete {
         position: absolute;
@@ -15,7 +15,6 @@
         width: 84%;
         transform: translate(50%);
         padding: 20px;
-        // border: 1px solid white;
         margin-top: 10px;
         display: flex;
         gap: 20px;
@@ -82,4 +81,20 @@
         }
     }
 
+}
+
+@media (max-width: 900px) {
+    .dashboard {
+        width: calc(100% - 300px);
+
+
+    }
+}
+
+@media (max-width: 600px) {
+    .dashboard {
+        width: 100%;
+        padding-bottom: 70px;
+        right: auto;
+    }
 }

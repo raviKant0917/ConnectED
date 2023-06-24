@@ -5,6 +5,6 @@ const router = express.Router();
 
 router
     .route('/')
-    .post(productController.createProduct)
+    .post(productController.uploadProductImages,productController.createProduct,productController.resizeImages);
 
 module.exports = router;

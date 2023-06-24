@@ -1,125 +1,101 @@
-const User = require("./../models/userSchema");
-const AppError = require("./../utils/appError");
-const multer = require("multer");
-const sharp = require("sharp");
-const catchAsync = require("./../utils/catchAsyncError");
+const catchAsync = require('./../utils/catchAsyncError');
+const bcrypt = require('bcryptjs');
+const multer = require('multer');
+const fs = require('fs');
+const User = require('./../models/userSchema');
+const jwt = require('jsonwebtoken');
+const sharp = require('sharp');
+const AppError = require('./../utils/appError');
+const sendEmail = require('./../utils/emailer');
 
 const multerStorage = multer.memoryStorage();
 
-const multerFilter = (req, file, cb) => {
-    if (file.mimetype.startsWith("image")) {
-        cb(null, true);
-    } else {
-        cb(new AppError("Please select an image file", 400), false);
+const multerFilter = (req,file,cb)=>{
+    if(file.mimetype.startsWith('image')){
+        cb(null,true);
     }
-};
+    else{
+        cb(new AppError('Please select an image file',400),false);
+    }
+}
 
 const upload = multer({
-    storage: multerStorage,
-    fileFilter: multerFilter,
+    storage:multerStorage,
+    fileFilter:multerFilter
 });
-exports.uploadProductImages = upload.fields([{ name: "images", maxCount: 5 }]);
 
-exports.resizeImages = catchAsync(async (req, res, next) => {
-    if (!req.files)
-        return next(
-            new AppError("Upload minimum one image for the product", 400)
-        );
+const filterObj = (ogObj,...filters)=>{
+    const newobj = {};
+    Object.keys(ogObj).forEach(el =>{
+        if(filters.includes(el))    newobj[el]=ogObj[el];
+    });
+    return newobj;
+}
+
+exports.uploadUserPhoto = upload.single('profileImage');
+
+exports.resizeImage = catchAsync(async(req,res,next)=>{
+    if(!req.file)   return next();
+    req.file.filename = `user-${req.user.id}.jpeg`;
+
+    await sharp(req.file.buffer).resize(500,500).toFormat('jpeg').jpeg({quality:90}).toFile(`public/${req.file.filename}`);
     next();
-});
+})
 
-exports.getAllUsers = catchAsync(async (req, res, next) => {
-    let page = parseInt(req.query.page) || 1;
-    const perPage = parseInt(req.query.perPage) || 10;
-    console.log(page, perPage, req.query);
-    const total = await User.find().count();
-
-    let totalPages = Math.ceil(total / perPage);
-    console.log(totalPages);
-    if (page > totalPages) page = totalPages;
-    const skipCount = (page - 1) * perPage;
-
-    const allUsers = await User.find().skip(skipCount).limit(perPage);
-    if (!allUsers) return next(new AppError("Something went wrong!", 500));
-    res.status(200).json({
-        success: "true",
-        result: allUsers,
-    });
-});
-
-exports.createUser = catchAsync(async (req, res, next) => {
-    console.log(req.query);
-    if (Object.keys(req.body).length == 0)
-        return next(new AppError("plz provide user information", 400));
-    const newUser = {
-        name: req.body.name,
-        phoneNumber: req.body.phoneNumber,
-        email: req.body.email,
-        profileUrl: req.body.profileUrl,
-    };
-
-    const userFound = await User.findOne({ email: newUser.email });
-    if (userFound) {
-        return res.status(200).json({
-            message: "User alreday exists",
-        });
+exports.updateUser = catchAsync(async(req,res,next)=>{
+    if(req.body.password || req.body.confirmPassword){
+        return next(new AppError('This route is not for password update',400));
     }
-
-    await User.create(newUser);
-    res.status(201).json({
-        success: "true",
-        body: newUser,
-    });
-});
-
-exports.updateUser = catchAsync(async (req, res, next) => {
-    const userId = req.params.id;
-    if (Object.keys(req.body).length == 0)
-        return next(
-            new AppError("plz provide information to update user", 400)
-        );
-
-    const updatedUser = await User.findByIdAndUpdate(userId, req.body, {
-        new: true,
-        runValidators: true,
+    const filteredBody = filterObj(req.body,'name','address','phoneNumber');
+    if(req.file)    filteredBody.profileImage = req.file.filename;
+    const updatedUser = await User.findByIdAndUpdate(req.user,filteredBody,{
+        new:true,
+        runValidators:true
     });
     res.status(200).json({
-        success: "true",
-        result: updatedUser,
+        status:'success',
+        updatedUser
     });
 });
 
-exports.deleteUser = catchAsync(async (req, res, next) => {
-    const userId = req.params.id;
-    const deletedUser = await User.findByIdAndDelete(userId);
-    if (!deletedUser)
-        return res.status(400).json({
-            success: "false",
-            message: "user does not exists",
-        });
+exports.deleteUser = catchAsync(async(req,res,next)=>{
+    const {password,confirmPassword} = req.body;
+    const email = req.user.email;
+    const id = req.user.id;
+    const user = await User.findById(req.user.id).select('+password');
+    if(!password || !confirmPassword || password!==confirmPassword || !user ||!(await bcrypt.compare(password,user.password)))   return next(new AppError('Invalid Credentials',400));
 
+    await User.findByIdAndDelete(req.user.id);
+    fs.unlink(`public/user-${id}.jpeg`,(err)=>{
+        if(err) console.log(err);
+    });
+    //On only in production
+    await sendEmail({
+        email,
+        subject: 'Alert! Account Deleted',
+        message:'This mail is just a confirmatory mail stating the closure of the Mumble account. It\'s difficult to see you go :('
+    });
     res.status(200).json({
-        success: "true",
-        deletedUser: deletedUser,
+        status:'success',
+        message:'Account deleted Successfully'
     });
 });
 
-exports.checkIfUserExists = catchAsync(async (req, res, next) => {
-    if (Object.keys(req.body).length == 0)
-        return next(new AppError("No email id provided", 400));
-
-    const email = req.body.email;
-    const userFound = await User.findOne({ email: email });
-    if (userFound)
-        return res.status(200).json({
-            success: "true",
-            userId: userFound._id,
-            found: 1,
-            message: " user exists",
-        });
+exports.getUser = catchAsync(async(req,res,next)=>{
+    const searchUser = await User.findById(req.params.id);
     res.status(200).json({
-        success: "True",
-        found: 0,
-        message: "User does not exists",
+        status:'success',
+        searchedUser:searchUser
     });
-});
+})
+
+exports.getMe = catchAsync(async(req,res,next)=>{
+    res.download('./public/user.png'); 
+})
+
+exports.isloggedin = (req,res)=>{
+    res.status(200).json({
+        status:true,
+        user:req.user
+    });
+}

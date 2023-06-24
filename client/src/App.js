@@ -7,6 +7,7 @@ import Signup from "./components/Signup/Signup.jsx";
 import Dashboard, { loadProduct } from "./components/Dashboard/Dashboard.jsx";
 import Error from "./components/Error/Error.jsx";
 import Chat from "./components/Chats/Chat.jsx";
+import Cart from "./components/Carts/Cart.jsx";
 import {loadChat} from  "./components/Chats/Chat.jsx"
 
 const router = createBrowserRouter([
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
         errorElement: <Error />,
         children: [
             { index: true, loader: loadProduct, element: <Dashboard /> },
-            { path: "/products" },
+            { path: "/cart",element:<Cart/> },
             { path: "/chats",element:<Chat/> },
             { path: "/profile" },
         ],

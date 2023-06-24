@@ -7,9 +7,10 @@ import Signup from "./components/Signup/Signup.jsx";
 import Dashboard, { loadProducts } from "./components/Dashboard/Dashboard.jsx";
 import Error from "./components/Error/Error.jsx";
 import Chat, { loadChat } from "./components/Chats/Chat.jsx";
-import Cart from "./components/Carts/Cart.jsx";
+import Cart,{loadCart} from "./components/Carts/Cart.jsx";
 import Search from "./components/SearchBar/Search.jsx";
 import Product, { loadProduct } from "./components/Product/Product.jsx";
+
 
 const router = createBrowserRouter([
     {
@@ -42,7 +43,7 @@ const router = createBrowserRouter([
                     </>
                 ),
             },
-            { path: "/cart", element: <Cart /> },
+            { path: "/cart", element: <Cart />,loader: loadCart  },
             { path: "/chats", element: <Chat />, loader: loadChat },
             { path: "/profile" },
         ],

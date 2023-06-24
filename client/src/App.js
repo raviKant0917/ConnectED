@@ -6,8 +6,9 @@ import Navbar from "./components/Navbar/Navbar.jsx";
 import Signup from "./components/Signup/Signup.jsx";
 import Dashboard, { loadProducts } from "./components/Dashboard/Dashboard.jsx";
 import Error from "./components/Error/Error.jsx";
-import Product, { loadProduct } from "./components/Product/Product.jsx";
-import Search from "./components/SearchBar/Search.jsx";
+import Chat from "./components/Chats/Chat.jsx";
+import Cart from "./components/Carts/Cart.jsx";
+import {loadChat} from  "./components/Chats/Chat.jsx"
 
 const router = createBrowserRouter([
     {

@@ -72,6 +72,7 @@ const BigNav = (props) => {
                     />
                     <label>Ada Lovelace</label>
                 </div>
+                <hr />
                 <div className="Nav">
                     <Link
                         to="/"

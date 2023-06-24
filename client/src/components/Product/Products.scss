@@ -1,0 +1,70 @@
+.product {
+    position: absolute;
+    right: 30px;
+    width: calc(100% - 350px);
+    top: 200px;
+    text-transform: uppercase;
+    > img {
+        height: 40vh;
+        box-shadow: 8px 8px 16px #ffffff55;
+    }
+    .owner,
+    .hostel,
+    .description {
+        > label {
+            font-weight: 600;
+        }
+        padding: 5px auto;
+    }
+    .description {
+        > span {
+            text-transform: none;
+        }
+    }
+    .give {
+        > div {
+            .stars {
+                color: #ffd700;
+                font-size: 20px;
+                vertical-align: middle;
+            }
+        }
+        > textarea {
+            width: 300px;
+            height: 100px;
+            background-color: #ffffff55;
+            border: 1px solid white;
+            border-radius: 5px;
+            color: white;
+            padding: 10px;
+            margin: 20px auto 0;
+            display: inline-block;
+            &::placeholder {
+                color: white;
+            }
+        }
+        > button {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background: linear-gradient(to right, #7fe786, #58a7fe);
+            cursor: pointer;
+        }
+    }
+}
+
+@media (max-width: 900px) {
+    .product {
+        width: calc(100% - 300px);
+    }
+}
+
+@media (max-width: 600px) {
+    .product {
+        width: 100%;
+        margin: auto;
+        padding: 20px;
+        padding-bottom: 75px;
+        right: auto;
+    }
+}

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import Card from "./Card/Card";
-import { Link, useLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import "./Dashboard.scss";
 
 const List = (props) => {
@@ -39,68 +39,22 @@ const List = (props) => {
         </div>
     );
 };
-let complete = [];
 
 const Dashboard = () => {
     const data = useLoaderData();
-    const [focus, setFocus] = useState(false);
-    const [search, setSearch] = useState("");
-    const searchProducts = (text) => {
-        let matches = data.all.filter((item) => {
-            const regex = new RegExp(`^${text}`, "gi");
-            return (
-                item.owner_name.match(regex) || item.product_name.match(regex)
-            );
-        });
-        return matches;
-    };
 
     return (
         <div className="dashboard">
-            <div className="search">
-                <input
-                    type="text"
-                    placeholder="&#x1F50E; Search"
-                    onInput={(e) => {
-                        complete = searchProducts(e.target.value);
-                        setSearch(e.target.value);
-                    }}
-                    onFocus={() => setFocus(true)}
-                    onBlur={() => setFocus(false)}
-                />
-                <button type="submit">Submit</button>
-            </div>
-
-            {focus && (
-                <div id="autocomplete">
-                    {complete.map((item) => (
-                        <Link to={item.id}>
-                            <div>
-                                <img
-                                    src={item.image}
-                                    alt={item.product_name}
-                                    height={50}
-                                    width={50}
-                                />
-                            </div>
-                            <span>
-                                {item.product_name}
-                                <br />
-                                Owner: {item.owner_name}
-                            </span>
-                        </Link>
-                    ))}
-                </div>
-            )}
             <List data={data} />
         </div>
     );
 };
 
-export const loadProduct = () => {
+export const loadProducts = () => {
     return {
         boys: [
             {
+                id: 1,
                 image: "https://pyxis.nymag.com/v1/imgs/bdc/eae/6151a14aa22cce4d1797b3e3b54c749eaa-Phillips-Norelco.2x.rdeep-vertical.w245.jpg",
                 owner_name: "nikhil",
                 product_name: "trimmer",
@@ -110,6 +64,7 @@ export const loadProduct = () => {
                 available: false,
             },
             {
+                id: 1,
                 image: "https://momspotted.com/wp-content/uploads/2018/09/AXE-Products.jpg",
                 owner_name: "ravi",
                 product_name: "perfume",
@@ -119,6 +74,7 @@ export const loadProduct = () => {
                 available: true,
             },
             {
+                id: 1,
                 image: "https://m.media-amazon.com/images/I/61vR3xLS32L.jpg",
                 owner_name: "rishabh",
                 product_name: "cricket kit",
@@ -128,6 +84,7 @@ export const loadProduct = () => {
                 available: true,
             },
             {
+                id: 1,
                 image: "https://m.media-amazon.com/images/I/714pWQP0+JL.jpg",
                 owner_name: "Neeraj",
                 product_name: "watch",
@@ -137,6 +94,7 @@ export const loadProduct = () => {
                 available: true,
             },
             {
+                id: 1,
                 image: "https://im.idiva.com/luxury/photogallery/2013/May/beauty_and_the_boys_the_best_products_for_men_thumb.gif",
                 owner_name: "aryan sharma",
                 product_name: "cream",
@@ -148,6 +106,7 @@ export const loadProduct = () => {
         ],
         girls: [
             {
+                id: 1,
                 image: "https://static-bebeautiful-in.unileverservices.com/Multipurpose-makeup-products-every-girl-needs_3.jpg",
                 owner_name: "gayatri",
                 product_name: "makeup",
@@ -157,6 +116,7 @@ export const loadProduct = () => {
                 available: true,
             },
             {
+                id: 1,
                 image: "https://static-bebeautiful-in.unileverservices.com/Multipurpose-makeup-products-every-girl-needs_1.jpg",
                 owner_name: "priyanka",
                 product_name: "cream",
@@ -166,6 +126,7 @@ export const loadProduct = () => {
                 available: true,
             },
             {
+                id: 1,
                 image: "https://m.media-amazon.com/images/I/81rAehGhpDL.jpg",
                 owner_name: "tanisha",
                 product_name: "bedsheet",
@@ -175,6 +136,7 @@ export const loadProduct = () => {
                 available: true,
             },
             {
+                id: 1,
                 image: "https://i.etsystatic.com/30542255/r/il/be38ba/4725322601/il_fullxfull.4725322601_c0wy.jpg",
                 owner_name: "khusi",
                 product_name: "dress",
@@ -184,6 +146,7 @@ export const loadProduct = () => {
                 available: true,
             },
             {
+                id: 1,
                 image: "https://img.faballey.com/images/Product/ILK00050Z/d3.jpg",
                 owner_name: "madhu",
                 product_name: "dress",
@@ -195,6 +158,7 @@ export const loadProduct = () => {
         ],
         all: [
             {
+                id: 1,
                 image: "https://pyxis.nymag.com/v1/imgs/bdc/eae/6151a14aa22cce4d1797b3e3b54c749eaa-Phillips-Norelco.2x.rdeep-vertical.w245.jpg",
                 owner_name: "nikhil",
                 product_name: "trimmer",
@@ -204,6 +168,7 @@ export const loadProduct = () => {
                 available: false,
             },
             {
+                id: 1,
                 image: "https://momspotted.com/wp-content/uploads/2018/09/AXE-Products.jpg",
                 owner_name: "ravi",
                 product_name: "perfume",
@@ -213,6 +178,7 @@ export const loadProduct = () => {
                 available: true,
             },
             {
+                id: 1,
                 image: "https://m.media-amazon.com/images/I/61vR3xLS32L.jpg",
                 owner_name: "rishabh",
                 product_name: "cricket kit",
@@ -222,6 +188,7 @@ export const loadProduct = () => {
                 available: true,
             },
             {
+                id: 1,
                 image: "https://m.media-amazon.com/images/I/714pWQP0+JL.jpg",
                 owner_name: "Neeraj",
                 product_name: "watch",
@@ -231,6 +198,7 @@ export const loadProduct = () => {
                 available: true,
             },
             {
+                id: 1,
                 image: "https://im.idiva.com/luxury/photogallery/2013/May/beauty_and_the_boys_the_best_products_for_men_thumb.gif",
                 owner_name: "aryan sharma",
                 product_name: "cream",
@@ -240,6 +208,7 @@ export const loadProduct = () => {
                 available: true,
             },
             {
+                id: 1,
                 image: "https://static-bebeautiful-in.unileverservices.com/Multipurpose-makeup-products-every-girl-needs_3.jpg",
                 owner_name: "gayatri",
                 product_name: "makeup",
@@ -249,6 +218,7 @@ export const loadProduct = () => {
                 available: true,
             },
             {
+                id: 1,
                 image: "https://static-bebeautiful-in.unileverservices.com/Multipurpose-makeup-products-every-girl-needs_1.jpg",
                 owner_name: "priyanka",
                 product_name: "cream",
@@ -258,6 +228,7 @@ export const loadProduct = () => {
                 available: true,
             },
             {
+                id: 1,
                 image: "https://m.media-amazon.com/images/I/81rAehGhpDL.jpg",
                 owner_name: "tanisha",
                 product_name: "bedsheet",
@@ -267,6 +238,7 @@ export const loadProduct = () => {
                 available: true,
             },
             {
+                id: 1,
                 image: "https://i.etsystatic.com/30542255/r/il/be38ba/4725322601/il_fullxfull.4725322601_c0wy.jpg",
                 owner_name: "khusi",
                 product_name: "dress",
@@ -276,6 +248,7 @@ export const loadProduct = () => {
                 available: true,
             },
             {
+                id: 1,
                 image: "https://img.faballey.com/images/Product/ILK00050Z/d3.jpg",
                 owner_name: "madhu",
                 product_name: "dress",

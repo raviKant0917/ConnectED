@@ -6,6 +6,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const allProductsRouter = require('./routes/allProductRoutes');
 const productRouter = require('./routes/productRoutes');
+const userRouter = require('./routes/userRoutes')
 
 const app = express();
 
@@ -216,5 +217,6 @@ app.get("/", (req, res) => {
 });
 app.use('/products',allProductsRouter);
 app.use('/product',productRouter);
+app.use('/users', userRouter);
 
 module.exports = app;

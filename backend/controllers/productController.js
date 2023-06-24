@@ -6,6 +6,7 @@ const catchAsync = require('./../utils/catchAsyncError');
 
 const multerStorage = multer.memoryStorage();
 
+
 const multerFilter = (req,file,cb)=>{
     if(file.mimetype.startsWith('image')){
         cb(null,true);
@@ -16,8 +17,8 @@ const multerFilter = (req,file,cb)=>{
 }
 
 const upload = multer({
-    storage:multerStorage,
-    fileFilter:multerFilter
+    storage: multerStorage,
+    fileFilter: multerFilter,
 });
 
 exports.uploadProductImages = upload.fields([
@@ -79,5 +80,4 @@ exports.createProduct = catchAsync(async(req,res,next)=>{
         });
         req.body.currProduct = newProduct;
     }
-    next();
-});
+})

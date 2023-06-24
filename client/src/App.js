@@ -6,6 +6,8 @@ import Navbar from "./components/Navbar/Navbar.jsx";
 import Signup from "./components/Signup/Signup.jsx";
 import Dashboard, { loadProduct } from "./components/Dashboard/Dashboard.jsx";
 import Error from "./components/Error/Error.jsx";
+import Chat from "./components/Chats/Chat.jsx";
+import {loadChat} from  "./components/Chats/Chat.jsx"
 
 const router = createBrowserRouter([
     {
@@ -20,7 +22,7 @@ const router = createBrowserRouter([
         children: [
             { index: true, loader: loadProduct, element: <Dashboard /> },
             { path: "/products" },
-            { path: "/chats" },
+            { path: "/chats",element:<Chat/> },
             { path: "/profile" },
         ],
     },

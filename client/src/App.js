@@ -5,6 +5,7 @@ import Header from "./components/Header/Header.jsx";
 import Navbar from "./components/Navbar/Navbar.jsx";
 import Signup from "./components/Signup/Signup.jsx";
 import Dashboard, { loadProduct } from "./components/Dashboard/Dashboard.jsx";
+import Error from "./components/Error/Error.jsx";
 
 const router = createBrowserRouter([
     {
@@ -15,6 +16,7 @@ const router = createBrowserRouter([
                 <Navbar />
             </>
         ),
+        errorElement: <Error />,
         children: [
             { index: true, loader: loadProduct, element: <Dashboard /> },
             { path: "/products" },

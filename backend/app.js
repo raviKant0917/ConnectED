@@ -9,8 +9,16 @@ const userRouter = require('./routes/userRoutes')
 const session = require('express-session');
 const passport = require('passport');
 const oauthRouter = require("./utils/Oauth")
-
+const http = require('http')
 const app = express();
+const chatRoomRouter = require('./routes/chatRoom')
+const deleteRouter = require('./routes/delete')
+
+const server = http.createServer(app);
+const socketio = require('socket.io')(server)
+const WebSockets = require('./utils/websocket')
+global.io = socketio.listen(server);
+global.io.on('connection', WebSockets.connection)
 
 //MiddleWares
 app.use(helmet());
@@ -231,5 +239,7 @@ app.get("/", (req, res) => {
 app.use('/', oauthRouter);
 app.use('/product',productRouter);
 app.use('/users', userRouter);
+app.use('/room', chatRoomRouter)
+app.use('/chat', deleteRouter)
 
 module.exports = app;

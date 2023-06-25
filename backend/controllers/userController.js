@@ -108,7 +108,20 @@ exports.getUser = catchAsync(async(req,res,next)=>{
 })
 
 exports.getMe = catchAsync(async(req,res,next)=>{
-    res.download('./public/users/user.png'); 
+    const searchUser = await User.findById(req.user.id).populate({
+        path:'productsRented',
+        select: '-__v'
+    }).populate({
+        path:'productsSold',
+        select: '-__v'
+    }).populate({
+        path:'productsBought',
+        select: '-__v'
+    });
+    res.status(200).json({
+        status:'success',
+        user:searchUser
+    });
 })
 
 exports.isloggedin = (req,res)=>{

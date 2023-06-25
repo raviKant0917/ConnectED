@@ -35,4 +35,25 @@ router
 
 router.route("/:id").get(userController.getUser);
 
-module.exports = router;
+router
+  .route('/updatePassword')
+  .patch(authController.protect,authController.updatePassword);
+
+router
+  .route('/')
+  .patch(authController.protect,userController.uploadUserPhoto,userController.resizeImage,userController.updateUser)
+  .delete(authController.protect,userController.deleteUser);
+
+router
+    .route('/getMe')
+    .get(authController.protect,userController.getMe);
+
+router
+  .route('/:id')
+  .get(userController.getUser)
+
+router
+    .route('/checkemail')
+    .post(authController.checkEmailExists);
+  
+module.exports=router;

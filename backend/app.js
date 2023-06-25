@@ -5,7 +5,8 @@ const cookieParser = require('cookie-parser');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const productRouter = require('./routes/productRoutes');
-const userRouter = require('./routes/userRoutes')
+const userRouter = require('./routes/userRoutes');
+const transactionRouter = require('./routes/transactionRoutes.js');
 
 const app = express();
 
@@ -217,5 +218,6 @@ app.get("/", (req, res) => {
 
 app.use('/product',productRouter);
 app.use('/users', userRouter);
+app.use('/transaction',transactionRouter);
 
 module.exports = app;

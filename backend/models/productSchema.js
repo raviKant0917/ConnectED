@@ -15,6 +15,10 @@ const productSchema = mongoose.Schema({
         ref:'User',
         required:[true,'A product must have a seller']
     },
+    available:{
+        type:Boolean,
+        default:true
+    },
     images:{
         type:[String],
         validate:[function(){
@@ -32,13 +36,6 @@ const productSchema = mongoose.Schema({
         required:[true,'A product needs price to be listed']
     }
 });
-
-// productSchema.pre(/^find/,function(next){
-//     this.populate({
-//         path:'seller',
-//         select: 'name'
-//     });
-// })
 
 const Product = mongoose.model('Product',productSchema);
 

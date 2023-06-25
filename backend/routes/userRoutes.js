@@ -1,14 +1,36 @@
-const express = require("express");
-const userController = require("./../controllers/userController");
+const express = require('express');
+const userController = require('./../controllers/userController.js');
+const authController= require('./../controllers/authController.js');
 
 const router = express.Router();
 
-router.route("/registerUser").post(userController.createUser)
-router.route("/getAllUsers").get(userController.getAllUsers)
-router.route("/deleteUser/:id").get(userController.deleteUser)
-router.route("/checkIfUserExists").get(userController.checkIfUserExists)
-router.route("/updateUser/:id").patch(userController.updateUser)
+router
+  .route('/signup')
+  .post(authController.signup,authController.uploadImage,authController.resizeImage);
 
+router
+  .route('/login')
+  .post(authController.login);
 
+router
+  .route('/forgotPassword')
+  .post(authController.forgotPassword);
 
-module.exports = router;
+router
+  .route('/resetPassword/:token')
+  .patch(authController.resetPassword);
+
+router
+  .route('/updatePassword')
+  .patch(authController.protect,authController.updatePassword);
+
+router
+  .route('/')
+  .patch(authController.protect,userController.uploadUserPhoto,userController.resizeImage,userController.updateUser)
+  .delete(authController.protect,userController.deleteUser);
+
+router
+  .route('/:id')
+  .get(userController.getUser)
+  
+module.exports=router;

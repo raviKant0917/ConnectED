@@ -33,6 +33,13 @@ const productSchema = mongoose.Schema({
     }
 });
 
+// productSchema.pre(/^find/,function(next){
+//     this.populate({
+//         path:'seller',
+//         select: 'name'
+//     });
+// })
+
 const Product = mongoose.model('Product',productSchema);
 
 module.exports = Product;

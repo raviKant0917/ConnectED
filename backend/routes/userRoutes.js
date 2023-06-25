@@ -30,6 +30,10 @@ router
   .delete(authController.protect,userController.deleteUser);
 
 router
+    .route('/getMe')
+    .get(authController.protect,userController.getMe);
+
+router
   .route('/:id')
   .get(userController.getUser)
   

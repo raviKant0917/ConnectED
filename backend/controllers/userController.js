@@ -38,7 +38,7 @@ exports.resizeImage = catchAsync(async(req,res,next)=>{
     if(!req.file)   return next();
     req.file.filename = `user-${req.user.id}.jpeg`;
 
-    await sharp(req.file.buffer).resize(500,500).toFormat('jpeg').jpeg({quality:90}).toFile(`public/${req.file.filename}`);
+    await sharp(req.file.buffer).resize(500,500).toFormat('jpeg').jpeg({quality:90}).toFile(`public/users/${req.file.filename}`);
     next();
 })
 
@@ -51,6 +51,15 @@ exports.updateUser = catchAsync(async(req,res,next)=>{
     const updatedUser = await User.findByIdAndUpdate(req.user,filteredBody,{
         new:true,
         runValidators:true
+    }).populate({
+        path:'productsRented',
+        select: '-__v'
+    }).populate({
+        path:'productsSold',
+        select: '-__v'
+    }).populate({
+        path:'productsBought',
+        select: '-__v'
     });
     res.status(200).json({
         status:'success',
@@ -66,7 +75,7 @@ exports.deleteUser = catchAsync(async(req,res,next)=>{
     if(!password || !confirmPassword || password!==confirmPassword || !user ||!(await bcrypt.compare(password,user.password)))   return next(new AppError('Invalid Credentials',400));
 
     await User.findByIdAndDelete(req.user.id);
-    fs.unlink(`public/user-${id}.jpeg`,(err)=>{
+    fs.unlink(`public/users/user-${id}.jpeg`,(err)=>{
         if(err) console.log(err);
     });
     //On only in production
@@ -82,7 +91,16 @@ exports.deleteUser = catchAsync(async(req,res,next)=>{
 });
 
 exports.getUser = catchAsync(async(req,res,next)=>{
-    const searchUser = await User.findById(req.params.id);
+    const searchUser = await User.findById(req.params.id).populate({
+        path:'productsRented',
+        select: '-__v'
+    }).populate({
+        path:'productsSold',
+        select: '-__v'
+    }).populate({
+        path:'productsBought',
+        select: '-__v'
+    });
     res.status(200).json({
         status:'success',
         searchedUser:searchUser
@@ -90,7 +108,7 @@ exports.getUser = catchAsync(async(req,res,next)=>{
 })
 
 exports.getMe = catchAsync(async(req,res,next)=>{
-    res.download('./public/user.png'); 
+    res.download('./public/users/user.png'); 
 })
 
 exports.isloggedin = (req,res)=>{

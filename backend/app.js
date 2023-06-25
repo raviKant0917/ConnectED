@@ -4,7 +4,6 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
-const allProductsRouter = require('./routes/allProductRoutes');
 const productRouter = require('./routes/productRoutes');
 const userRouter = require('./routes/userRoutes')
 
@@ -215,7 +214,7 @@ const object = {
 app.get("/", (req, res) => {
     res.status(200).json(object);
 });
-app.use('/products',allProductsRouter);
+
 app.use('/product',productRouter);
 app.use('/users', userRouter);
 

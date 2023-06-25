@@ -15,6 +15,10 @@ router
     .post(transactionController.paymentVerification);
 
 router
+    .route('/getapikey')
+    .get(transactionController.getAPIkey);
+
+router
     .route('/')
     .get(transactionController.getMyTransactions);
 

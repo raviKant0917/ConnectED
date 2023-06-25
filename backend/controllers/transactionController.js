@@ -11,6 +11,12 @@ const instance = new Razorpay({
     key_secret: process.env.RAZORPAY_APT_SECRET,
 });
 
+exports.getAPIkey = (req,res)=>{
+    res.status(200).json({ 
+        key: process.env.RAZORPAY_API_KEY 
+    })
+}
+
 exports.checkout = catchAsync(async (req, res,next) => {
     const product = await Product.findById(req.params.productId);
     console.log(product);

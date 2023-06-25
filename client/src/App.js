@@ -9,6 +9,7 @@ import Error from "./components/Error/Error.jsx";
 import Chat, { loadChat } from "./components/Chats/Chat.jsx";
 import Cart,{loadCart} from "./components/Carts/Cart.jsx";
 import Search from "./components/SearchBar/Search.jsx";
+import Profile,{loadProfile} from "./components/Profile/Profile.jsx";
 import Product, { loadProduct } from "./components/Product/Product.jsx";
 
 
@@ -45,7 +46,7 @@ const router = createBrowserRouter([
             },
             { path: "/cart", element: <Cart />,loader: loadCart  },
             { path: "/chats", element: <Chat />, loader: loadChat },
-            { path: "/profile" },
+            { path: "/profile", element: <Profile/>, loader:loadProfile },
         ],
     },
     {

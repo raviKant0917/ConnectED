@@ -6,6 +6,9 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const productRouter = require('./routes/productRoutes');
 const userRouter = require('./routes/userRoutes')
+const session = require('express-session');
+const passport = require('passport');
+const oauthRouter = require("./utils/Oauth")
 
 const app = express();
 
@@ -19,6 +22,16 @@ app.use(cors({
     origin: "*",
     credentials:true
 }));
+app.use(
+    session({
+        secret: "your-secret-key",
+        resave: false,
+        saveUninitialized: false,
+    })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 app.use('/public',express.static('public'));
 
 const object = {
@@ -215,6 +228,7 @@ app.get("/", (req, res) => {
     res.status(200).json(object);
 });
 
+app.use('/', oauthRouter);
 app.use('/product',productRouter);
 app.use('/users', userRouter);
 

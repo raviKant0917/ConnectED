@@ -4,6 +4,12 @@ const validator = require('validator');
 const bcrypt = require('bcryptjs');
 
 const userSchema = mongoose.Schema({
+    method: {
+        type: String
+    },
+    googleId: {
+        type: String
+    },
     name: {
         type: String,
         required: [true, "A user must have a name."],
@@ -21,7 +27,7 @@ const userSchema = mongoose.Schema({
         type: String,
         maxLength: 10,
         minLength: 10,
-        required: [true, "phone number must be provided"],
+        required: [false, "phone number must be provided"],
     },
     profileImage: {
         type: String,
@@ -34,7 +40,7 @@ const userSchema = mongoose.Schema({
     roomNumber:{
         type: String,
         maxLength: 150,
-        required:[true,'A user must have an address']
+        required:[false,'A user must have an address']
     },
     productsRented: {
         type:[mongoose.Schema.ObjectId],
@@ -54,13 +60,13 @@ const userSchema = mongoose.Schema({
     },
     password:{
         type:String,
-        required:[true,'An account requires a password'],
+        required:[false,'An account requires a password'],
         minlength:8,
         select:false
     },
     confirmPassword:{
         type:String,
-        required:[true,'An account needs to confirm password'],
+        required:[false,'An account needs to confirm password'],
         validate:[function(el){
             return el===this.password;
         },'Password and confirm Password do not match']

@@ -14,7 +14,7 @@ const userSchema = mongoose.Schema({
         unique:[true,'User already exists'],
         lowercase:true,
         validate:[function(eadd){
-            return validator.isEmail && eadd.split('@').length > 1 && eadd.split('@')[1]=='nith.ac.in';
+            return validator.isEmail(eadd) && eadd.split('@').length > 1 && eadd.split('@')[1]=='nith.ac.in';
         },'This email address is not valid']
     },
     phoneNumber: {
@@ -45,8 +45,7 @@ const userSchema = mongoose.Schema({
         ref:'Product'
     },
     productsRequested: {
-        type:[mongoose.Schema.ObjectId],
-        ref:'Product'
+        type:[String]
     },
     password:{
         type:String,

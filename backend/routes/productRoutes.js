@@ -10,6 +10,11 @@ router
     .get(authController.protect,productController.getAllProductsByText);
 
 router
+    .route('/request')
+    .post(authController.protect,productController.createRequest)
+    .delete(authController.protect,productController.deleteRequest);
+
+router
     .route('/:productID')
     .get(authController.protect,productController.getProductById)
     .patch(authController.protect,productController.uploadProductImages,productController.updateResizeImages,productController.updateProduct)

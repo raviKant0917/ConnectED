@@ -192,7 +192,8 @@ exports.updatePassword = catchAsync(async(req,res,next)=>{
 })
 
 exports.checkEmailExists = catchAsync(async(req,res,next)=>{
-    const usr = await User.find({email:req.body.email});
+    const usr = await User.findOne({email:req.body.email});
+    console.log(usr);
     if(!usr){
         return res.status(200).json({
             status:'success',

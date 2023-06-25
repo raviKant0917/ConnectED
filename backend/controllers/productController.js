@@ -36,7 +36,10 @@ exports.uploadProductImages = upload.fields([
 ]);
 
 exports.resizeImages = catchAsync(async(req,res,next)=>{
-    if(!req.files)  return next(new AppError('Upload minimum one image for the product',400));
+    if(!req.files){  
+        await Product.findByIdAndDelete(req.body.currProduct.id);
+        return next(new AppError('Upload minimum one image for the product',400));
+    }
     
     req.body.images=[];
     await Promise.all(
@@ -63,6 +66,23 @@ exports.resizeImages = catchAsync(async(req,res,next)=>{
     },{
         runValidators:false,
         new:true
+    })
+
+    const allusrs = await User.find();
+    allusrs.forEach(async currusr=>{
+        if(currusr.productsRequested.find(req.body.currProduct.name)){
+            const message = `Hoorayyy!!! The product that you requested is now available on ConnectED`;
+            try{
+                await sendEmail({
+                    email:currusr.email,
+                    subject:'Product Listed on ConnectED',
+                    message
+                });
+            }
+            catch(err){
+                console.log(err);
+            }
+        }
     })
     
     res.status(200).json({
@@ -92,7 +112,7 @@ exports.updateResizeImages = catchAsync(async(req,res,next)=>{
 })
 
 exports.createProduct = catchAsync(async(req,res,next)=>{
-    if(!req.body.user)  req.body.user = req.user;
+    if(!req.body.user)  req.body.user = req.user;checkEmailExists
 
     if(req.body.rent == 'true'){
         const newProduct = await Product.create({
@@ -100,6 +120,7 @@ exports.createProduct = catchAsync(async(req,res,next)=>{
             description:req.body.description,
             seller:req.user.id,
             rent:true,
+            available:true,
             images:[`${Date.now()}`],
             duration:req.body.duration,
             price:req.body.price
@@ -113,6 +134,7 @@ exports.createProduct = catchAsync(async(req,res,next)=>{
             description:req.body.description,
             seller:req.user.id,
             rent:false,
+            available:true,
             images:[`${Date.now()}`],
             price:req.body.price
         });
@@ -122,9 +144,27 @@ exports.createProduct = catchAsync(async(req,res,next)=>{
 })
 
 exports.updateProduct = catchAsync(async(req,res,next)=>{
-    const filteredBody = filterObj(req.body,'name','description','rent','price');
+    const filteredBody = filterObj(req.body,'name','description','rent','price','available');
 
     const findproduct = await Product.findById(req.params.productID);
+    if(filteredBody.name){
+        const allusrs = await User.find();
+        allusrs.forEach(async currusr=>{
+            if(currusr.productsRequested.find(req.body.currProduct.name)){
+                const message = `Hoorayyy!!! The product that you requested is now available on ConnectED`;
+                try{
+                    await sendEmail({
+                        email:currusr.email,
+                        subject:'Product Listed on ConnectED',
+                        message
+                    });
+                }
+                catch(err){
+                    console.log(err);
+                }
+            }
+        })
+    }
     if(!findproduct)    return next(new AppError('No such product exists',404));
    
     if(findproduct.seller.toString() !== req.user.id)  return next(new AppError('You do not have permission to edit this product',400));
@@ -142,9 +182,45 @@ exports.updateProduct = catchAsync(async(req,res,next)=>{
     });
 });
 
+exports.createRequest = catchAsync(async(req,res,next)=>{
+    const usr = await User.findById(req.user.id);
+    if(usr.productsRequested.find(req.body.name)){
+        return res.status(200).json({
+            status:'fail',
+            message:'A similar request has already been recorded from your account'
+        });
+    }
+    await User.findByIdAndUpdate(req.user.id,{
+        productsRequested:[...usr.productsRequested,req.body.name]
+    },{
+        runValidators:false,
+        new:true
+    });
+    res.status(200).json({
+        status:'success',
+        message:'Your request has been recorded'
+    });
+})
+
+exports.deleteRequest = catchAsync(async(req,res,next)=>{
+    const usr = await User.findById(req.user.id);
+    if(!usr.productsRequested.find(req.body.name)){
+        return next(new AppError('Cannot delete a requested product which has not been requested',400));
+    }
+    await User.findByIdAndUpdate(req.user.id,{
+        productsRequested:usr.productsRequested.filter(str=>{
+            return str !==req.body.name;
+        })
+    })
+    res.status(200).json({
+        status:'success',
+        message:'Your request has been removed'
+    });
+})
+
 exports.getAllProductsByText = catchAsync(async(req,res,next)=>{
     let filter = {};
-    const features = new APIFeatures(Product.find(filter), req.query).filter().sort().limitFields().paginate();
+    const features = new APIFeatures(Product.find({...filter,available:{$ne:false}}), req.query).filter().sort().limitFields().paginate();
 
     const doc = await features.query.populate('seller','name profileImage');
     if(doc.length==0){
@@ -191,7 +267,7 @@ exports.deleteProduct = catchAsync(async(req,res,next)=>{
         });
     })
 
-    const updtusr = await User.findByIdAndUpdate(req.user.id,{
+    User.findByIdAndUpdate(req.user.id,{
         productsSold:usr.productsSold.filter((prod)=>{
             return prod !=req.params.productID
         })

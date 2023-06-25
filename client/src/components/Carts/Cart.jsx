@@ -7,8 +7,9 @@ const Cart = (props) => {
   const data = useLoaderData();
   return (
     <div className="cartWrapper">
-      {Object.keys(data).map((key,i) => (
-          <div key={i}>
+      {Object.keys(data).map((key, i) => (
+        <div key={i}>
+          <div>
             <h1>
               <span className="Heading">Product for {key}:</span>
             </h1>
@@ -16,7 +17,7 @@ const Cart = (props) => {
               {data[key].length === 0 ? (
                 <div>Nothing to show</div>
               ) : (
-                data[key].map((item,index) => (
+                data[key].map((item, index) => (
                   <Card
                     key={index}
                     id={item.id}
@@ -30,6 +31,7 @@ const Cart = (props) => {
               )}
             </div>
           </div>
+        </div>
       ))}
     </div>
   );

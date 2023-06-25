@@ -78,7 +78,7 @@ export const loadChat = () => {
                 },
                 {
                     send: "You",
-                    text: "hii",
+                    text: "hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii",
                     time: "10:00 am",
                     date: "6-24-2023",
                 },

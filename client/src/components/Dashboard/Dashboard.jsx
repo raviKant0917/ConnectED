@@ -8,33 +8,36 @@ const List = (props) => {
   return (
     <div className="products">
       {Object.keys(data).map((key, index) => (
-        <>
+        <div>
           {key === "all" ? (
             ""
           ) : (
-            <>
+            <div>
               <h1>{key}</h1>
-              <div>
+              <div className="card-wrapper">
                 {data[key].length === 0 ? (
-                  <div>Nothing to show</div>
+                  <span>Nothing to show</span>
                 ) : (
+                  
                   data[key].map((item) => (
-                    <Card
-                      id={item.id}
-                      image={item.image}
-                      owner={item.owner_name}
-                      product={item.product_name}
-                      hostel={item.hostel_name}
-                      rating={item.rating}
-                      rent={item.rent}
-                      available={item.available}
-                    />
+                   
+                      <Card
+                        className="card"
+                        id={item.id}
+                        image={item.image}
+                        owner={item.owner_name}
+                        product={item.product_name}
+                        hostel={item.hostel_name}
+                        rating={item.rating}
+                        rent={item.rent}
+                        available={item.available}
+                      />
                   ))
                 )}
               </div>
-            </>
+            </div>
           )}
-        </>
+        </div>
       ))}
     </div>
   );
@@ -92,6 +95,28 @@ export const loadProducts = () => {
         product_name: "watch",
         hostel_name: "Kailash Boys Hostel",
         rating: "3",
+        rent: false,
+        available: true,
+      },
+      {
+        id: 1,
+        image:
+          "https://im.idiva.com/luxury/photogallery/2013/May/beauty_and_the_boys_the_best_products_for_men_thumb.gif",
+        owner_name: "aryan sharma",
+        product_name: "cream",
+        hostel_name: "Himadri Boys Hostel",
+        rating: "4",
+        rent: false,
+        available: true,
+      },
+      {
+        id: 1,
+        image:
+          "https://im.idiva.com/luxury/photogallery/2013/May/beauty_and_the_boys_the_best_products_for_men_thumb.gif",
+        owner_name: "aryan sharma",
+        product_name: "cream",
+        hostel_name: "Himadri Boys Hostel",
+        rating: "4",
         rent: false,
         available: true,
       },

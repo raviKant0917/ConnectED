@@ -12,15 +12,18 @@ const userSchema = mongoose.Schema({
     phoneNumber: {
         type: String,
         maxLength: 10,
+        minLength: 10,
         required: [true, "phone number must be provided"],
     },
     profileImage: {
         type: String,
         maxLength: 150,
     },
-    address: {
+    hostelName:{
         type: String,
-        maxLength: 150
+    },
+    roomNumber:{
+        type: String,
     },
     productsRented: [
         {

@@ -208,21 +208,21 @@
     }
   }
 }
-@media (max-width: 786px) {
-  .profileWrapper {
-    width: calc(100% - 270px);
-    .profile {
-      width: 55vw;
-    }
-    .login_info {
-      width: 55vw;
-    }
-    .upi_id {
-      width: 55vw;
-    }
-  }
-}
-@media (max-width: 600px) {
+// @media (max-width: 786px) {
+//   .profileWrapper {
+//     width: calc(100% - 270px);
+//     .profile {
+//       width: 55vw;
+//     }
+//     .login_info {
+//       width: 55vw;
+//     }
+//     .upi_id {
+//       width: 55vw;
+//     }
+//   }
+// }
+@media (max-width: 900px) {
   .profileWrapper {
     padding-bottom: 90px;
     width: 85vw;

@@ -2,6 +2,7 @@ const User = require('./../models/userSchema.js');
 const crypto = require('crypto');
 const {promisify} = require('util');
 const bcrypt = require('bcryptjs');
+const validator = require('validator');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const sharp = require('sharp');
@@ -190,3 +191,27 @@ exports.updatePassword = catchAsync(async(req,res,next)=>{
     await user.save();
     sendToken(user,201,res);
 })
+
+exports.checkEmailExists = catchAsync(async(req,res,next)=>{
+    if(!validator.isEmail(req.body.email) || req.body.email.split('@').length <= 1 || req.body.email.split('@')[1]!=='nith.ac.in'){
+        return res.status(400).json({
+            status:'fail',
+            message:'Email is either invalid or does not belong to college domain'
+        })
+    }
+
+    const usr = await User.findOne({email:req.body.email});
+    console.log(usr);
+    if(!usr){
+        return res.status(200).json({
+            status:'success',
+            message:'Email address available'
+        })
+    }
+    else{
+        return res.status(400).json({
+            status:'fail',
+            message:'User with this email address already exists'
+        })
+    }
+});

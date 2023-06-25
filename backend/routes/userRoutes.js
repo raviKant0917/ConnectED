@@ -36,5 +36,9 @@ router
 router
   .route('/:id')
   .get(userController.getUser)
+
+router
+    .route('/checkemail')
+    .post(authController.checkEmailExists);
   
 module.exports=router;

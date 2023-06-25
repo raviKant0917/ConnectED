@@ -24,8 +24,8 @@ const SmallNav = (props) => {
                     </Link>
 
                     <Link
-                        to="/products"
-                        className={route === "/products" ? "active" : undefined}
+                        to="/cart"
+                        className={route === "/cart" ? "active" : undefined}
                     >
                         <MdOutlineShoppingCart />
                         <div>Cart</div>
@@ -72,6 +72,7 @@ const BigNav = (props) => {
                     />
                     <label>Ada Lovelace</label>
                 </div>
+                <hr />
                 <div className="Nav">
                     <Link
                         to="/"
@@ -81,8 +82,8 @@ const BigNav = (props) => {
                     </Link>
 
                     <Link
-                        to="/products"
-                        className={route === "/products" ? "active" : undefined}
+                        to="/cart"
+                        className={route === "/cart" ? "active" : undefined}
                     >
                         Cart
                     </Link>

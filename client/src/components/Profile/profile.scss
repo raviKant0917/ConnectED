@@ -24,7 +24,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      >h1{
+      > h1 {
         margin: 1rem;
       }
       > img {
@@ -42,7 +42,7 @@
       align-items: center;
       flex-direction: column;
       margin: 1rem;
-      >label{
+      > label {
         align-self: flex-start;
         margin-bottom: 0.3rem;
       }
@@ -69,10 +69,10 @@
     height: 50vh;
     width: 70vw;
     justify-content: center;
-     height: fit-content;
-     padding: 1rem;
-     margin: 1.5rem;
-     border-radius: 10px;
+    height: fit-content;
+    padding: 1rem;
+    margin: 1.5rem;
+    border-radius: 10px;
     > div {
       display: flex;
       flex-direction: column;
@@ -84,7 +84,7 @@
       align-items: center;
       flex-direction: column;
       margin: 1rem;
-      >label{
+      > label {
         align-self: flex-start;
         margin-bottom: 0.3rem;
       }
@@ -111,10 +111,10 @@
     height: 50vh;
     width: 70vw;
     justify-content: center;
-     height: fit-content;
-     padding: 1rem;
-     margin: 1.5rem;
-     border-radius: 10px;
+    height: fit-content;
+    padding: 1rem;
+    margin: 1.5rem;
+    border-radius: 10px;
     > div {
       display: flex;
       flex-direction: column;
@@ -127,7 +127,7 @@
       flex-direction: column;
       justify-content: center;
       margin: 1rem;
-      >label{
+      > label {
         align-self: flex-start;
         margin-bottom: 0.3rem;
       }
@@ -143,11 +143,50 @@
 
         &::placeholder {
           color: rgb(233, 225, 225);
-          >text{
+          > text {
             text-align: center;
           }
         }
       }
     }
+  }
+  .password {
+    margin-bottom: 1rem;
+    padding: 0.3rem;
+    border-radius: 5px;
+    width: 46vw;
+    padding: 0.7rem;
+    border: 1px solid #ffffff55;
+    background: linear-gradient(to right, #ffffff75, #ffffff66);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+
+    &::placeholder {
+      color: rgb(233, 225, 225);
+    }
+    > input {
+      background: transparent;
+      border: none;
+    }
+    > button {
+      background: transparent;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+  }
+  .submit {
+    padding: 0.5rem;
+    font-size: 17px;
+    font-weight: bolder;
+    color: black;
+    background: linear-gradient(to right, #7fe786, #58a7fe);
+    width: 120px;
+    border-radius: 10px;
+    // margin: 0.4rem;
+    margin-bottom: 1rem;
+    margin-top: 0.1rem;
+    cursor: pointer;
   }
 }

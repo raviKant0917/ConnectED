@@ -1,9 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import "./profile.scss";
 import { useLoaderData } from "react-router-dom";
+import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 
 const Profile = (props) => {
   const data = useLoaderData();
+  const submiHandler=()=>{
+    
+  }
+  
+
+  const [show, setShow] = useState(false);
+
+  const [info, setInfo] = useState({
+    img: data.img,
+    email: data.email,
+    name: data.name,
+    roll_no: data.roll_no,
+    room_no: data.room_no,
+    password: data.password,
+    hostel_name: data.hostel_name,
+    upi_id: data.upi_id,
+  });
+
   return (
     <div className="profileWrapper">
       <form className="profile">
@@ -12,13 +31,45 @@ const Profile = (props) => {
           <img src={data.img} alt="profile" />
           <div className="inputWrapper">
             <label for="name">Full Name</label>
-            <input type="text" value={data.name} />
+            <input
+              type="text"
+              onInput={(e) =>
+                setInfo((prevState) => {
+                  return { ...prevState, name: e.target.value };
+                })
+              }
+              value={info.name}
+            />
             <label for="roll_no">Roll no</label>
-            <input type="text" value={data.roll_no} />
+            <input
+              type="text"
+              onInput={(e) =>
+                setInfo((prevState) => {
+                  return { ...prevState, roll_no: e.target.roll_no };
+                })
+              }
+              value={info.roll_no}
+            />
             <label for="room_no">Room No</label>
-            <input type="text" value={data.room_no} />
+            <input
+              type="text"
+              onInput={(e) =>
+                setInfo((prevState) => {
+                  return { ...prevState, room_no: e.target.room_no };
+                })
+              }
+              value={info.room_no}
+            />
             <label for="hostel_name">Hostel Name</label>
-            <input type="text" value={data.hostel_name} />
+            <input
+              type="text"
+              onInput={(e) =>
+                setInfo((prevState) => {
+                  return { ...prevState, hostel_name: e.target.hostel_name };
+                })
+              }
+              value={info.hostel_name}
+            />
           </div>
         </div>
       </form>
@@ -27,9 +78,37 @@ const Profile = (props) => {
           <h1>Personal Information</h1>
           <div className="inputWrapper">
             <label for="email">Email</label>
-            <input type="email" value={data.email} />
-            <label for="password">Password</label>
-            <input type="password" value={data.password} />
+            <input
+              type="email"
+              onInput={(e) =>
+                setInfo((prevState) => {
+                  return { ...prevState, email: e.target.email };
+                })
+              }
+              value={info.email}
+            />
+            <label for="password">Password </label>
+            <div className="password">
+              <input
+                type={show ? "text" : "password"}
+                onInput={(e) =>
+                  setInfo((prevState) => {
+                    return { ...prevState, password: e.target.password };
+                  })
+                }
+                value={info.password}
+              />
+              {!show && (
+                <button onClick={() => setShow((prevState) => !prevState)}>
+                  <AiFillEyeInvisible />
+                </button>
+              )}
+              {show && (
+                <button onClick={() => setShow((prevState) => !prevState)}>
+                  <AiFillEye />
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </form>
@@ -38,10 +117,19 @@ const Profile = (props) => {
           <h1>UPI ID</h1>
           <div className="inputWrapper">
             <label for="upi_id">UPI ID</label>
-            <input type="text" value={data.upi_id} />
+            <input
+              type="text"
+              onInput={(e) =>
+                setInfo((prevState) => {
+                  return { ...prevState, upi_id: e.target.upi_id };
+                })
+              }
+              value={info.upi_id}
+            />
           </div>
         </div>
       </form>
+      <button className="submit" onClick={submiHandler}>Save</button>
     </div>
   );
 };

@@ -21,13 +21,13 @@
     }
 }
 
-@media (max-width: 900px) {
-    .dashboard {
-        width: calc(100% - 300px);
-    }
-}
+// @media (max-width: 900px) {
+//     .dashboard {
+//         width: calc(100% - 300px);
+//     }
+// }
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
     .dashboard {
         width: 100%;
         padding-bottom: 70px;

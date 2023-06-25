@@ -126,7 +126,7 @@ const Navbar = () => {
 
     const route = useLocation().pathname;
 
-    return screen.width > 600 ? (
+    return screen.width > 900 ? (
         <BigNav route={route} />
     ) : (
         <SmallNav route={route} />

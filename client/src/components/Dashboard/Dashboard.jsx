@@ -9,18 +9,19 @@ const List = (props) => {
     <div className="products">
       {Object.keys(data).map((key, index) => (
         <div>
-          {key === "all" ? (
-            ""
-          ) : (
-            <div>
-              <h1>{key}</h1>
-              <div className="card-wrapper">
-                {data[key].length === 0 ? (
-                  <span>Nothing to show</span>
-                ) : (
-                  
-                  data[key].map((item) => (
-                   
+          <span className="heading">
+            <h1>{key}</h1>
+          </span>
+          <div>
+            {key === "all" ? (
+              ""
+            ) : (
+              <div>
+                <div className="card-wrapper">
+                  {data[key].length === 0 ? (
+                    <span>Nothing to show</span>
+                  ) : (
+                    data[key].map((item) => (
                       <Card
                         className="card"
                         id={item.id}
@@ -32,11 +33,12 @@ const List = (props) => {
                         rent={item.rent}
                         available={item.available}
                       />
-                  ))
-                )}
+                    ))
+                  )}
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       ))}
     </div>

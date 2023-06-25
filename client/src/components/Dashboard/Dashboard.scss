@@ -6,15 +6,24 @@
 
   .products {
     margin-top: 20px;
-
+    
     > div {
-      overflow-x: scroll;
+      display: flex;
+      flex-direction: column;
+      .heading{
+        text-decoration: underline;
+        text-transform: uppercase;
+        font-size: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      
+      }
+      >div{
+        overflow-x: scroll;
+      }
+      
       > div {
-        > h1 {
-          text-transform: uppercase;
-          text-align: center;
-          font-size: 50px;
-        }
         .card-wrapper {
           display: flex;
           justify-content: space-evenly;

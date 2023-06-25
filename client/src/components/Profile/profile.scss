@@ -162,11 +162,13 @@
     display: flex;
     justify-content: space-between;
 
+
     &::placeholder {
       color: rgb(233, 225, 225);
     }
     > input {
       background: transparent;
+      outline: none;
       border: none;
     }
     > button {
@@ -184,9 +186,119 @@
     background: linear-gradient(to right, #7fe786, #58a7fe);
     width: 120px;
     border-radius: 10px;
-    // margin: 0.4rem;
     margin-bottom: 1rem;
     margin-top: 0.1rem;
     cursor: pointer;
+  }
+}
+
+@media (max-width: 1024px) {
+  .profileWrapper {
+    .profile {
+      width: 60vw;
+      margin: 1.5rem 0.5rem;
+    }
+    .login_info {
+      width: 60vw;
+      margin: 1.5rem 0.5rem;
+    }
+    .upi_id {
+      width: 60vw;
+      margin: 1.5rem 0.5rem;
+    }
+  }
+}
+@media (max-width: 786px) {
+  .profileWrapper {
+    width: calc(100% - 270px);
+    .profile {
+      width: 55vw;
+    }
+    .login_info {
+      width: 55vw;
+    }
+    .upi_id {
+      width: 55vw;
+    }
+  }
+}
+@media (max-width: 600px) {
+  .profileWrapper {
+    padding-bottom: 90px;
+    width: 85vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    .profile {
+      width: 70vw;
+      margin: 0;
+      padding: 1rem;
+      > div {
+        width: fit-content;
+        > h1 {
+          font-size: large;
+        }
+        .inputWrapper {
+          padding: 0;
+          margin: 0 !important;
+          > input {
+            width: 60vw;
+          }
+        }
+      }
+    }
+    .login_info {
+      width: 70vw;
+      padding: 1rem;
+      > div {
+        width: fit-content;
+        > h1 {
+          font-size: large;
+        }
+        .inputWrapper {
+          padding: 0;
+          margin: 0 !important;
+          > input {
+            width: 60vw;
+          }
+        }
+      }
+    }
+    .upi_id {
+      width: 70vw;
+      margin: 0;
+      padding: 1rem;
+      > div {
+        width: fit-content;
+        > h1 {
+          font-size: large;
+        }
+        .inputWrapper {
+          padding: 0;
+          margin: 0 !important;
+          > input {
+            width: 60vw;
+          }
+        }
+      }
+    }
+    .submit {
+      padding: 0.5rem;
+      font-size: 15px;
+      width: 90px;
+      margin-bottom: 1rem;
+      margin-top: 1rem;
+      cursor: pointer;
+    }
+    .password {
+      display: flex;
+      justify-content: space-between;
+    width: 60vw;
+    >input{
+      width: 120px
+    }
+  }
   }
 }

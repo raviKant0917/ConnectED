@@ -5,6 +5,15 @@ import Form1 from "./Form1";
 import Form2 from "./Form2";
 
 const Signup = () => {
+    const [details, setDetails] = useState({
+        email: "",
+        password: "",
+        confirm_password: "",
+        name: "",
+        roll_no: "",
+        phone_number: 1000000000,
+        address: "",
+    });
     const [number, setNumber] = useState(false);
     const nextPage = () => {
         setNumber((prevState) => !prevState);
@@ -16,7 +25,7 @@ const Signup = () => {
                 <div className="slides">
                     <div className={`circle active`}>1</div>
                     <div
-                        className="line "
+                        className="line"
                         style={
                             !number
                                 ? { border: "0.3rem solid #ffffff" }
@@ -26,9 +35,9 @@ const Signup = () => {
                     <div className={`circle ${number && "active"}`}>2 </div>
                 </div>
                 {number ? (
-                    <Form2 click={nextPage} />
+                    <Form2 click={nextPage} obj={details} set={setDetails} />
                 ) : (
-                    <Form1 click={nextPage} />
+                    <Form1 click={nextPage} obj={details} set={setDetails} />
                 )}
             </div>
             {!number && (

@@ -10,7 +10,6 @@
     flex-direction: column;
     justify-content: center;
 
-
     > h1 {
         text-transform: uppercase;
         text-align: center;
@@ -115,6 +114,9 @@
             font-size: 2rem;
             border-radius: 50%;
         }
+    }
+    .error {
+        color: red;
     }
 }
 

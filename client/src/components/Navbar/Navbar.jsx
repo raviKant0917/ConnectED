@@ -102,6 +102,10 @@ const BigNav = (props) => {
                         Profile
                     </Link>
                 </div>
+                <div className="button">
+                    <button  className="Sign_out">SignOut</button>
+                </div>
+                
             </div>
             <Outlet />
         </>

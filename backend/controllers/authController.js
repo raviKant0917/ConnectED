@@ -190,3 +190,19 @@ exports.updatePassword = catchAsync(async(req,res,next)=>{
     await user.save();
     sendToken(user,201,res);
 })
+
+exports.checkEmailExists = catchAsync(async(req,res,next)=>{
+    const usr = await User.find({email:req.body.email});
+    if(!usr){
+        return res.status(200).json({
+            status:'success',
+            message:'Email address available'
+        })
+    }
+    else{
+        return res.status(400).json({
+            status:'fail',
+            message:'User with this email address already exists'
+        })
+    }
+});

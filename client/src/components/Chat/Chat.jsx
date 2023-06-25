@@ -1,39 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./chat.scss";
 import { useLoaderData } from "react-router-dom";
+import Chats from "./Chats/Chats";
+import Contacts from "./Contacts/Contacts";
 
 const Chat = () => {
     const data = useLoaderData();
+
+    const [width, setWidth] = useState(window.innerWidth);
     const [user, setUser] = useState("");
+
+    useEffect(() => {
+        window.addEventListener("resize", setWidth(window.innerWidth));
+    }, []);
+
     let obj = data[Object.keys(data).filter((key) => key === user)];
+
     return (
         <div className="chats-wrapper">
-            <div className="contacts">
-                {Object.keys(data).map((key) => (
-                    <div className="contact" onClick={() => setUser(key)}>
-                        <img src={data[key].image} alt={key} />
-                        <div className="contact-info">
-                            <h4>{key}</h4>
-                            <div>
-                                {data[key].chats.length !== 0 &&
-                                    data[key].chats[data[key].chats.length - 1]
-                                        .text}
-                            </div>
-                        </div>
-                    </div>
-                ))}
-            </div>
-            {user === ""}
-            {user !== "" && (
-                <div className="chats">
-                    <div className="chat-profile">
-                        <img src={data[user].image} alt={user} />
-                        <h1>{user}</h1>
-                    </div>
-                    {obj.chats.map((obj) => (
-                        <div className="chat">{obj.text}</div>
-                    ))}
-                </div>
+            {width >= 900 ? (
+                <>
+                    <Contacts data={data} set={setUser} />
+                    {user !== "" && (
+                        <Chats
+                            obj={obj}
+                            user={user}
+                            data={data}
+                            set={setUser}
+                        />
+                    )}
+                </>
+            ) : (
+                <>
+                    {user === "" && <Contacts data={data} set={setUser} />}
+                    {user !== "" && (
+                        <Chats
+                            obj={obj}
+                            user={user}
+                            data={data}
+                            set={setUser}
+                        />
+                    )}
+                </>
             )}
         </div>
     );
@@ -44,18 +52,78 @@ export const loadChat = () => {
         rishabh: {
             image: "https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80",
             chats: [
-                { text: "hii", time: "10:00 am", date: "6-24-2023" },
-                { text: "hii", time: "10:00 am", date: "6-24-2023" },
-                { text: "hii", time: "10:00 am", date: "6-24-2023" },
-                { text: "hii", time: "10:00 am", date: "6-24-2023" },
-                { text: "hii", time: "10:00 am", date: "6-24-2023" },
-                { text: "hii", time: "10:00 am", date: "6-24-2023" },
-                { text: "hii", time: "10:00 am", date: "6-24-2023" },
-                { text: "hii", time: "10:00 am", date: "6-24-2023" },
-                { text: "hii", time: "10:00 am", date: "6-24-2023" },
-                { text: "hii", time: "10:00 am", date: "6-24-2023" },
-                { text: "hii", time: "10:00 am", date: "6-24-2023" },
-                { text: "hii", time: "10:00 am", date: "6-24-2023" },
+                {
+                    send: "You",
+                    text: "hii",
+                    time: "10:00 am",
+                    date: "6-24-2023",
+                },
+                {
+                    send: "you",
+                    text: "hii",
+                    time: "10:00 am",
+                    date: "6-24-2023",
+                },
+                {
+                    send: "You",
+                    text: "kya kr rha h",
+                    time: "10:00 am",
+                    date: "6-24-2023",
+                },
+                {
+                    send: "rishabh",
+                    text: "kuch nhi",
+                    time: "10:00 am",
+                    date: "6-24-2023",
+                },
+                {
+                    send: "You",
+                    text: "hii",
+                    time: "10:00 am",
+                    date: "6-24-2023",
+                },
+                {
+                    send: "rishabh",
+                    text: "hii",
+                    time: "10:00 am",
+                    date: "6-24-2023",
+                },
+                {
+                    send: "You",
+                    text: "hii",
+                    time: "10:00 am",
+                    date: "6-24-2023",
+                },
+                {
+                    send: "rishabh",
+                    text: "hii",
+                    time: "10:00 am",
+                    date: "6-24-2023",
+                },
+                {
+                    send: "You",
+                    text: "hii",
+                    time: "10:00 am",
+                    date: "6-24-2023",
+                },
+                {
+                    send: "rishabh",
+                    text: "hii",
+                    time: "10:00 am",
+                    date: "6-24-2023",
+                },
+                {
+                    send: "You",
+                    text: "hii",
+                    time: "10:00 am",
+                    date: "6-24-2023",
+                },
+                {
+                    send: "rishabh",
+                    text: "hii",
+                    time: "10:00 am",
+                    date: "6-24-2023",
+                },
             ],
         },
         ravi: {

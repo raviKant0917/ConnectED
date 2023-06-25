@@ -40,7 +40,7 @@ const userSchema = mongoose.Schema({
         type:[mongoose.Schema.ObjectId],
         ref:'Product'
     },
-    productBought: {
+    productsBought: {
         type:[mongoose.Schema.ObjectId],
         ref:'Product'
     },
@@ -65,6 +65,23 @@ const userSchema = mongoose.Schema({
     passwordResetToken: String,
     passwordResetTokenExpires : Date
 });
+
+// userSchema.pre(/^find/,function(next){
+//     this.populate({
+//         path:'productsRented',
+//         select: '-__v'
+//     }).populate({
+//         path:'productsSold',
+//         select: '-__v'
+//     }).populate({
+//         path:'productsBought',
+//         select: '-__v'
+//     }).populate({
+//         path:'productsRequested',
+//         select: '-__v'
+//     });
+//     next();
+// })
 
 userSchema.pre('save',async function(next){
     if(!this.isModified('password'))    return next();

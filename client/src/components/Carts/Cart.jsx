@@ -7,7 +7,8 @@ const Cart = (props) => {
   const data = useLoaderData();
   return (
     <div className="cartWrapper">
-      {Object.keys(data).map((key, i) => (
+      <div>
+         {Object.keys(data).map((key, i) => (
         <div key={i}>
           <div>
             <h1>
@@ -33,6 +34,8 @@ const Cart = (props) => {
           </div>
         </div>
       ))}
+      </div>
+     
     </div>
   );
 };

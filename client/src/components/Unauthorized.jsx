@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { authActions } from "../store";
 
 const Unauthorized = ({ children }) => {
     const [auth, setAuth] = useState(true);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const f = async () => {
@@ -13,11 +16,17 @@ const Unauthorized = ({ children }) => {
             });
 
             const response = await res.json();
-            console.log(response);
+            setAuth(response);
         };
         f();
     }, []);
-    return auth ? <> {children}</> : <Navigate to="/signup" />;
+
+    dispatch(authActions.login({ name: "", image: "" }));
+    return localStorage.getItem("token") != null ? (
+        <> {children}</>
+    ) : (
+        <Navigate to="/signup" />
+    );
 };
 
 export default Unauthorized;

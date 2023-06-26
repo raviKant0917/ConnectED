@@ -1,3 +1,7 @@
+# Instructions for registering users
+
+Email should end with '@nith.ac.in'
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

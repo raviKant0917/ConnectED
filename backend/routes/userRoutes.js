@@ -40,5 +40,9 @@ router
 router
     .route('/checkemail')
     .post(authController.checkEmailExists);
+
+router
+    .route('/isloggedin')
+    .get(authController.protect,userController.isloggedin)
   
 module.exports=router;

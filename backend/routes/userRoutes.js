@@ -1,7 +1,7 @@
 const express = require('express');
 const userController = require('./../controllers/userController.js');
 const authController= require('./../controllers/authController.js');
-
+const jwtAuth = require('./../utils/jwtAuth.js');
 const router = express.Router();
 
 router
@@ -14,7 +14,7 @@ router
 
 router
   .route('/isloggedin')
-  .get(authController.protect,userController.isloggedin)
+  .get(jwtAuth, userController.isloggedin)
 
 router
   .route('/forgotPassword')
@@ -26,16 +26,16 @@ router
 
 router
   .route('/updatePassword')
-  .patch(authController.protect,authController.updatePassword);
+  .patch(authController.updatePassword);
 
 router
   .route('/')
-  .patch(authController.protect,userController.uploadUserPhoto,userController.resizeImage,userController.updateUser)
-  .delete(authController.protect,userController.deleteUser);
+  .patch(userController.uploadUserPhoto,userController.resizeImage,userController.updateUser)
+  .delete(userController.deleteUser);
 
 router
     .route('/getMe')
-    .get(authController.protect,userController.getMe);
+    .get(userController.getMe);
 
 router
   .route('/:id')

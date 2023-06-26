@@ -7,6 +7,9 @@ const xss = require('xss-clean');
 const productRouter = require('./routes/productRoutes');
 const userRouter = require('./routes/userRoutes');
 const transactionRouter = require('./routes/transactionRoutes.js');
+const { jwtAuth } = require('./utils/jwtAuth');
+// const msgRouter = require('./routes/messageRoutes.js')
+// const roomRouter = require('./routes/roomRoutes.js')
 
 const app = express();
 
@@ -211,13 +214,17 @@ const object = {
     ],
 };
 
+
 //Routes
 app.get("/", (req, res) => {
     res.status(200).json(object);
 });
 
+
 app.use('/product',productRouter);
 app.use('/users', userRouter);
 app.use('/transaction',transactionRouter);
+// app.use('/room', roomRouter);
+// app.use('/chat', msgRouter);
 
 module.exports = app;

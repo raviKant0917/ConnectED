@@ -5,6 +5,7 @@ const User = require('./../models/userSchema');
 const Transaction = require('./../models/transactionSchema');
 const catchAsync = require('./../utils/catchAsyncError');
 const AppError = require("../utils/appError");
+const dotenv = require('dotenv').config();
 
 const instance = new Razorpay({
     key_id: process.env.RAZORPAY_API_KEY,

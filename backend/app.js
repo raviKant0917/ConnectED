@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
     cors({
-        origin: "https://connect-fnyb.onrender.com/",
+        origin: '*',
         credentials: true,
     })
 );

@@ -5,11 +5,13 @@ const authSlice = createSlice({
     initialState: {
         isAuthenticated: false,
         user: {
-            id: "",
-            image: "",
-            name: "",
+            email: "",
+            password: "",
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWnW0NUpcrZcGZeUJ4e50ZLU8ugS9GPPoqww&usqp=CAU",
+            name: "guest",
             address: "",
             phone_number: "",
+            upi_id: "",
             cart: {
                 sell: [],
                 requested: [],
@@ -23,7 +25,8 @@ const authSlice = createSlice({
             state.isAuthenticated = true;
             const obj = action.payload;
             state.user = {
-                id: obj._id,
+                email: obj.email,
+                password: obj.password,
                 image: obj.profileImage,
                 name: obj.name,
                 address: obj.address,
@@ -34,14 +37,16 @@ const authSlice = createSlice({
                     bought: obj.productBought,
                     requested: obj.productRequested,
                 },
+                upi_id: obj.upi_id || "",
             };
         },
         logout(state) {
             state.isAuthenticated = false;
             state.user = {
-                id: "",
-                image: "",
-                name: "",
+                email: "",
+                password: "",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWnW0NUpcrZcGZeUJ4e50ZLU8ugS9GPPoqww&usqp=CAU",
+                name: "guest",
                 address: "",
                 phone_number: "",
                 cart: {
@@ -50,6 +55,7 @@ const authSlice = createSlice({
                     rented: [],
                     bought: [],
                 },
+                upi_id: "",
             };
         },
     },

@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import "./Navbar.scss";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { BiUserCircle } from "react-icons/bi";
+import { authActions } from "../../store";
+import { useSelector, useDispatch } from "react-redux";
 import {
     MdSpaceDashboard,
     MdOutlineShoppingCart,
     MdChat,
 } from "react-icons/md";
 
-const SmallNav = (props) => {
-    const route = props.route;
-
+const SmallNav = ({ route, image }) => {
     return (
         <>
             <div className="Navbar">
@@ -31,10 +31,7 @@ const SmallNav = (props) => {
                         <div>Cart</div>
                     </Link>
                     <div className="profile">
-                        <img
-                            src="https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80"
-                            alt="no img"
-                        />
+                        <img src={image} alt="no img" />
                     </div>
 
                     <Link
@@ -59,18 +56,13 @@ const SmallNav = (props) => {
     );
 };
 
-const BigNav = (props) => {
-    const route = props.route;
-
+const BigNav = ({ route, name, image, f }) => {
     return (
         <>
             <div className="Navbar">
                 <div className="profile">
-                    <img
-                        src="https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80"
-                        alt="no img"
-                    />
-                    <label>Ada Lovelace</label>
+                    <img src={image} alt="no img" />
+                    <label>{name}</label>
                 </div>
                 <hr />
                 <div className="Nav">
@@ -103,9 +95,13 @@ const BigNav = (props) => {
                     </Link>
                 </div>
                 <div className="button">
-                    <button  className="Sign_out">SignOut</button>
+                    <button
+                        className="Sign_out"
+                        onClick={f.bind(null, authActions.logout)}
+                    >
+                        SignOut
+                    </button>
                 </div>
-                
             </div>
             <Outlet />
         </>
@@ -117,7 +113,9 @@ const Navbar = () => {
         width: window.innerWidth,
         height: window.innerHeight,
     });
-
+    const dispatch = useDispatch();
+    const name = useSelector((state) => state.user.name);
+    const image = useSelector((state) => state.user.image);
     useEffect(() => {
         window.addEventListener("resize", () => {
             setScreen({ width: window.innerWidth, height: window.innerHeight });
@@ -127,9 +125,9 @@ const Navbar = () => {
     const route = useLocation().pathname;
 
     return screen.width > 900 ? (
-        <BigNav route={route} />
+        <BigNav route={route} name={name} image={image} f={dispatch} />
     ) : (
-        <SmallNav route={route} />
+        <SmallNav route={route} name={name} image={image} />
     );
 };
 

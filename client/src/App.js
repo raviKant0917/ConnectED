@@ -9,8 +9,9 @@ import Error from "./components/Error/Error.jsx";
 import Chat, { loadChat } from "./components/Chat/Chat.jsx";
 import Cart, { loadCart } from "./components/Carts/Cart.jsx";
 import Search from "./components/SearchBar/Search.jsx";
-import Profile, { loadProfile } from "./components/Profile/Profile.jsx";
+import Profile from "./components/Profile/Profile.jsx";
 import Product, { loadProduct } from "./components/Product/Product.jsx";
+import Unauthorized from "./components/Unauthorized.jsx";
 
 const router = createBrowserRouter([
     {
@@ -43,9 +44,32 @@ const router = createBrowserRouter([
                     </>
                 ),
             },
-            { path: "/cart", element: <Cart />, loader: loadCart },
-            { path: "/chats", element: <Chat />, loader: loadChat },
-            { path: "/profile", element: <Profile />, loader: loadProfile },
+            {
+                path: "/cart",
+                element: (
+                    <Unauthorized>
+                        <Cart />
+                    </Unauthorized>
+                ),
+                loader: loadCart,
+            },
+            {
+                path: "/chats",
+                element: (
+                    <Unauthorized>
+                        <Chat />
+                    </Unauthorized>
+                ),
+                loader: loadChat,
+            },
+            {
+                path: "/profile",
+                element: (
+                    <Unauthorized>
+                        <Profile />
+                    </Unauthorized>
+                ),
+            },
         ],
     },
     {

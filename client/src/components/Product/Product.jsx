@@ -1,16 +1,22 @@
 import React, { useState } from "react";
 import "./Products.scss";
-import { useLoaderData } from "react-router-dom";
+import { Navigate, useLoaderData, useNavigate } from "react-router-dom";
 import Star from "./Star";
 import Error from "../Error/Error";
 import Review from "./Review";
 
 const Product = () => {
     const data = useLoaderData();
+    const navigate = useNavigate();
     const [rating, setRating] = useState(0);
     if (data == null) {
         return <Error />;
     }
+
+    const chatHandler = () => {
+        navigate("/chats");
+    };
+
     return (
         <div className="product">
             <img src={data.image} alt={data.product_name} />
@@ -18,7 +24,7 @@ const Product = () => {
             <div className="buy">
                 <button>Buy Now</button>
                 <div>OR</div>
-                <button>Chat with Owner</button>
+                <button onClick={chatHandler}>Chat with Owner</button>
             </div>
 
             <div className="owner">

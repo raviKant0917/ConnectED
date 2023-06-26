@@ -1,5 +1,6 @@
 import React from 'react';
-import { useLoaderData } from 'react-router-dom'; 
+import { useLoaderData,useSearchParams } from 'react-router-dom'; 
+import { useEffect } from 'react';
 import Card from "./Card/Card";
 import "./search2.scss"
 
@@ -7,7 +8,7 @@ import "./search2.scss"
 const Search2 = () => {
 
   const data = useLoaderData();
-
+  const [searchParams,setSearchParams] = useSearchParams();
   return (
     <div className="searchWrapper">
       {Object.keys(data).map((key, i) => (
@@ -39,6 +40,22 @@ const Search2 = () => {
 }
 
 export const searchLoader =()=>{
+  const f = async () => {
+    console.log(document.cookie);
+    
+    const res = await fetch(`http://localhost:8000/product?name=kettle`, {
+        headers: {
+            Authorization: "Bearer " + document.cookie,
+        },
+    });
+
+    // const response = await res.json();
+
+    // if (response.status == true) {
+    //     dispatch(authActions.auth(true));
+    // }
+};
+f();
 return{
      trimmer: [
       {

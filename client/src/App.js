@@ -32,7 +32,6 @@ const router = createBrowserRouter([
         element: (
           <>
             <Unauthorized>
-              <Search />
               <Dashboard />
             </Unauthorized>
           </>
@@ -52,7 +51,6 @@ const router = createBrowserRouter([
         loader: loadProduct,
         element: (
           <>
-            <Search />
             <Product />
           </>
         ),

@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import "./Search.scss";
+import { useNavigate } from "react-router-dom";
 
 const Search = () => {
     const [focus, setFocus] = useState(false);
+    const navigate = useNavigate();
+    const submitHandler = ()=>{
+        navigate("/search")
+    }
     return (
         <div className="searchbar">
             <div className="search">
@@ -12,7 +17,7 @@ const Search = () => {
                     onFocus={() => setFocus(true)}
                     onBlur={() => setFocus(false)}
                 />
-                <button type="submit">Submit</button>
+                <button type="submit" onClick={submitHandler}>Submit</button>
             </div>
             {focus && <div id="autocomplete"></div>}
         </div>

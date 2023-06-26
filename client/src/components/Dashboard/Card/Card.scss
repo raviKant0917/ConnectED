@@ -1,7 +1,7 @@
 .card {
     color: white;
     text-decoration: none;
-    width: 250px;
+    width: 300px;
     height: fit-content;
     border-radius: 10px;
     background: linear-gradient(to right bottom, #ffffff55, #ffffff00);
@@ -44,7 +44,7 @@
 
 @media (max-width: 900px) {
     .card {
-        width: 200px;
+        width: 250px;
         margin: 10px;
         font-size: 13px;
 

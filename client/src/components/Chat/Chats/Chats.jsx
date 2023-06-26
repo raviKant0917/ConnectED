@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { BiSend } from "react-icons/bi";
+import React, {  useState } from "react";
+// import { BiSend } from "react-icons/bi";
 import Profile from "./Profile";
 import "./Chats.scss";
-import {
-    addDoc,
-    collection,
-    serverTimestamp,
-    onSnapshot,
-    query,
-    where,
-} from "firebase/firestore";
-import { db } from "../../firebase";
+// import {
+//     addDoc,
+//     collection,
+//     serverTimestamp,
+//     onSnapshot,
+//     query,
+//     where,
+// } from "firebase/firestore";
+// import { db } from "../../firebase";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 
 const Chats = ({ obj, user, data, set, room, ms }) => {
     const [chat, setChat] = useState("");
-    const userChatsRef = collection(db, "userChats");
+    // const userChatsRef = collection(db, "userChats");
     const name = useSelector((state) => state.user.name);
 
     // useEffect(() => {
@@ -31,16 +31,16 @@ const Chats = ({ obj, user, data, set, room, ms }) => {
     //     return () => unsubscribe();
     // }, []);
 
-    const clickHandler = async () => {
-        if (chat === "") return;
-        await addDoc(userChatsRef, {
-            text: chat,
-            createdAt: serverTimestamp(),
-            user: name,
-            room,
-        });
-        setChat("");
-    };
+    // const clickHandler = async () => {
+    //     if (chat === "") return;
+    //     await addDoc(userChatsRef, {
+    //         text: chat,
+    //         createdAt: serverTimestamp(),
+    //         user: name,
+    //         room,
+    //     });
+    //     setChat("");
+    // };
 
     return (
         <div className="chats">
@@ -64,7 +64,7 @@ const Chats = ({ obj, user, data, set, room, ms }) => {
                     onInput={(e) => setChat(e.target.value)}
                 />
 
-                <BiSend onClick={clickHandler} />
+                {/* <BiSend onClick={clickHandler} /> */}
             </div>
         </div>
     );

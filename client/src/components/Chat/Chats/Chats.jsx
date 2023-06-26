@@ -2,15 +2,15 @@
 // import { BiSend } from "react-icons/bi";
 // import Profile from "./Profile";
 // import "./Chats.scss";
-// // import {
-// //     addDoc,
-// //     collection,
-// //     serverTimestamp,
-// //     onSnapshot,
-// //     query,
-// //     where,
-// // } from "firebase/firestore";
-// // import { db } from "../../firebase";
+// import {
+//     addDoc,
+//     collection,
+//     serverTimestamp,
+//     onSnapshot,
+//     query,
+//     where,
+// } from "firebase/firestore";
+// import { db } from "../../firebase";
 // import { useSelector } from "react-redux/es/hooks/useSelector";
 
 // const Chats = ({ obj, user, data, set, room, ms }) => {
@@ -58,15 +58,15 @@
 // //     );
 // // };
 
-//             <div className="text-input">
-//                 <input
-//                     type="text"
-//                     placeholder="Type your message"
-//                     value={chat}
-//                     onInput={(e) => setChat(e.target.value)}
-//                 />
+// //             <div className="text-input">
+// //                 <input
+// //                     type="text"
+// //                     placeholder="Type your message"
+// //                     value={chat}
+// //                     onInput={(e) => setChat(e.target.value)}
+// //                 />
 
-//                 {/* <BiSend onClick={clickHandler} /> */}
+//                 <BiSend onClick={clickHandler} />
 //             </div>
 //         </div>
 //     );

@@ -2,9 +2,11 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../store";
 import "./header.scss";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     return (
         <div className="headerWrapper">
             <div className="header">
@@ -13,7 +15,10 @@ const Header = () => {
             <div className="button">
                 <button
                     className="Sign_out"
-                    onClick={dispatch.bind(null, authActions.logout())}
+                    onClick={() => {
+                        dispatch(authActions.auth(false));
+                        navigate("/login");
+                    }}
                 >
                     SignOut
                 </button>

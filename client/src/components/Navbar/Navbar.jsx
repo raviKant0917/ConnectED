@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Navbar.scss";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { BiUserCircle } from "react-icons/bi";
 import { authActions } from "../../store";
 import { useSelector, useDispatch } from "react-redux";
@@ -56,7 +56,7 @@ const SmallNav = ({ route, image }) => {
     );
 };
 
-const BigNav = ({ route, name, image, f }) => {
+const BigNav = ({ route, name, image, f, navigate }) => {
     return (
         <>
             <div className="Navbar">
@@ -97,7 +97,10 @@ const BigNav = ({ route, name, image, f }) => {
                 <div className="button">
                     <button
                         className="Sign_out"
-                        onClick={f.bind(null, authActions.logout)}
+                        onClick={() => {
+                            f.bind(null, authActions.auth(false));
+                            navigate("/login");
+                        }}
                     >
                         SignOut
                     </button>
@@ -114,6 +117,7 @@ const Navbar = () => {
         height: window.innerHeight,
     });
     const dispatch = useDispatch();
+    const Navigate = useNavigate();
     const name = useSelector((state) => state.user.name);
     const image = useSelector((state) => state.user.image);
     useEffect(() => {
@@ -125,7 +129,13 @@ const Navbar = () => {
     const route = useLocation().pathname;
 
     return screen.width > 900 ? (
-        <BigNav route={route} name={name} image={image} f={dispatch} />
+        <BigNav
+            route={route}
+            name={name}
+            image={image}
+            f={dispatch}
+            navigate={Navigate}
+        />
     ) : (
         <SmallNav route={route} name={name} image={image} />
     );

@@ -1,30 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Navigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { authActions } from "../store";
 
 const Unauthorized = ({ children }) => {
-    const [auth, setAuth] = useState(true);
+    const auth = useSelector((state) => state.isAuthenticated);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const f = async () => {
-            fetch("http://localhost:8000/users/isloggedin", {
-                method: "GET",
-                credentials: "same-origin",
-                mode: "cors",
+            const res = await fetch("http://localhost:8000/users/isloggedin", {
                 headers: {
-                    "Access-Control-Allow-Origin": "*",
-                    "Content-Type": "application/json",
-                    Auth: "Bearer " + localStorage.getItem("token"),
+                    Authorization: "Bearer " + document.cookie,
                 },
-            })
-                .then((res) =>
-                    res
-                        .json()
-                        .then((data) => console.log(data))
-                        .catch((err) => console.log(err))
-                )
-                .catch((err) => console.log(err));
-        };
+            });
 
+            const response = await res.json();
+
+            if (response.status == true) {
+                dispatch(authActions.auth(true));
+            }
+        };
         f();
     }, []);
     return auth ? <> {children}</> : <Navigate to="/signup" />;

@@ -46,8 +46,8 @@ const Form = () => {
         }
 
         const response = await res.json();
-        localStorage.setItem("token", response.token);
-        console.log(response);
+        document.cookie = response.token;
+
         dispatch(
             authActions.login({
                 ...response.user,

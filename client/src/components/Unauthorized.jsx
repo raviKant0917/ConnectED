@@ -6,7 +6,7 @@ const Unauthorized = ({ children }) => {
 
     useEffect(() => {
         const f = async () => {
-            const res = fetch("http://localhost:8000/users/getMe", {
+            const res = await fetch("http://localhost:8000/users/getMe", {
                 headers: {
                     Autherization: "Bearer " + localStorage.getItem("token"),
                 },

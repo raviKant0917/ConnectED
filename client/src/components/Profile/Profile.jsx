@@ -47,10 +47,10 @@ const Profile = (props) => {
                         <label for="password">Password </label>
                         <div className="password">
                             <input
-                                type={show ? "text" : "password"}
+                                type="password"
                                 value={info.password}
                             />
-                            {!show && (
+                            {/* {!show && (
                                 <button
                                     onClick={() =>
                                         setShow((prevState) => !prevState)
@@ -67,7 +67,7 @@ const Profile = (props) => {
                                 >
                                     <AiFillEye />
                                 </button>
-                            )}
+                            )} */}
                         </div>
                     </div>
                 </div>

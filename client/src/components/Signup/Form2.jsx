@@ -27,6 +27,7 @@ const Form2 = ({ click, obj, set }) => {
                 }),
             });
         } catch (err) {
+            console.log(err);
             alert(err);
             return;
         }
@@ -49,7 +50,6 @@ const Form2 = ({ click, obj, set }) => {
                 },
             })
         );
-        // console.log(response);
         if (response.status === "success") {
             Navigate("/");
         }

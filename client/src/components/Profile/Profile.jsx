@@ -5,7 +5,7 @@ import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 
 const Profile = (props) => {
-    const data = useSelector((state) => state.user);
+    const data = useSelector((state) => state.auth.user);
     const navigate = useNavigate();
 
     const [show, setShow] = useState(false);
@@ -47,10 +47,10 @@ const Profile = (props) => {
                         <label for="password">Password </label>
                         <div className="password">
                             <input
-                                type={show ? "text" : "password"}
+                                type="password"
                                 value={info.password}
                             />
-                            {!show && (
+                            {/* {!show && (
                                 <button
                                     onClick={() =>
                                         setShow((prevState) => !prevState)
@@ -67,7 +67,7 @@ const Profile = (props) => {
                                 >
                                     <AiFillEye />
                                 </button>
-                            )}
+                            )} */}
                         </div>
                     </div>
                 </div>

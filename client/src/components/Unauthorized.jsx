@@ -4,11 +4,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../store";
 
 const Unauthorized = ({ children }) => {
-    const auth = useSelector((state) => state.isAuthenticated);
+    const auth = useSelector((state) => state.auth.isAuthenticated);
     const dispatch = useDispatch();
 
     useEffect(() => {
         const f = async () => {
+            console.log(document.cookie);
             const res = await fetch("http://localhost:8000/users/isloggedin", {
                 headers: {
                     Authorization: "Bearer " + document.cookie,
@@ -22,7 +23,7 @@ const Unauthorized = ({ children }) => {
             }
         };
         f();
-    }, []);
+    },[auth]);
     return auth ? <> {children}</> : <Navigate to="/signup" />;
 };
 

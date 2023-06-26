@@ -118,8 +118,8 @@ const Navbar = () => {
     });
     const dispatch = useDispatch();
     const Navigate = useNavigate();
-    const name = useSelector((state) => state.user.name);
-    const image = useSelector((state) => state.user.image);
+    const name = useSelector((state) => state.auth.user.name);
+    const image = useSelector((state) => state.auth.user.image);
     useEffect(() => {
         window.addEventListener("resize", () => {
             setScreen({ width: window.innerWidth, height: window.innerHeight });

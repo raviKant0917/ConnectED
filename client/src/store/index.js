@@ -3,7 +3,9 @@ import authSlice from "./Auth";
 
 export const authActions = authSlice.actions;
 const store = configureStore({
-    reducer: authSlice.reducer,
+    reducer: {
+        auth:authSlice.reducer   
+    }
 });
 
 export default store;

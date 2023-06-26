@@ -9,7 +9,7 @@ const Chat = () => {
 
     const [width, setWidth] = useState(window.innerWidth);
     const [user, setUser] = useState("");
-    // const [messages, setMessages] = useState([]);
+    const [messages, setMessages] = useState([]);
 
     useEffect(() => {
         window.addEventListener("resize", setWidth(window.innerWidth));
@@ -28,7 +28,7 @@ const Chat = () => {
                             user={user}
                             data={data}
                             set={setUser}
-                            // ms={setMessages}
+                             ms={setMessages}
                         />
                     )}
                 </>
@@ -41,7 +41,7 @@ const Chat = () => {
                             user={user}
                             data={data}
                             set={setUser}
-                            // ms={setMessages}
+                            ms={setMessages}
                         />
                     )}
                 </>

@@ -6,25 +6,15 @@ const Unauthorized = ({ children }) => {
 
     useEffect(() => {
         const f = async () => {
-            fetch("http://localhost:8000/users/isloggedin", {
-                method: "GET",
-                credentials: "same-origin",
-                mode: "cors",
+            const res = fetch("http://localhost:8000/users/getMe", {
                 headers: {
-                    "Access-Control-Allow-Origin": "*",
-                    "Content-Type": "application/json",
-                    Auth: "Bearer " + localStorage.getItem("token"),
+                    Autherization: "Bearer " + localStorage.getItem("token"),
                 },
-            })
-                .then((res) =>
-                    res
-                        .json()
-                        .then((data) => console.log(data))
-                        .catch((err) => console.log(err))
-                )
-                .catch((err) => console.log(err));
-        };
+            });
 
+            const response = await res.json();
+            console.log(response);
+        };
         f();
     }, []);
     return auth ? <> {children}</> : <Navigate to="/signup" />;

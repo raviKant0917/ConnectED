@@ -179,17 +179,29 @@
       cursor: pointer;
     }
   }
-  .submit {
-    padding: 0.5rem;
+  .sell {
+    padding: 1rem;
     font-size: 17px;
     font-weight: bolder;
     color: black;
     background: linear-gradient(to right, #7fe786, #58a7fe);
-    width: 120px;
+    width: 55vw;
     border-radius: 10px;
     margin-bottom: 1rem;
     margin-top: 0.1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
+    >button{
+      border: none;
+      background: transparent;
+      font-weight:bolder;
+      font-size: 1.5rem;
+      width: 55vw;
+      height: 2rem;
+      cursor: pointer;
+    }
   }
 }
 
@@ -285,14 +297,17 @@
         }
       }
     }
-    .submit {
-      padding: 0.5rem;
-      font-size: 15px;
-      width: 90px;
+    .sell {
+      padding: 1.5rem 1rem;
       margin-bottom: 1rem;
       margin-top: 1rem;
       cursor: pointer;
+      >button{
+        cursor: pointer;
+        font-size: 15px;
+      }
     }
+    
     .password {
       display: flex;
       justify-content: space-between;

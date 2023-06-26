@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import "./profile.scss";
 import { useSelector } from "react-redux";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 const Profile = (props) => {
     const data = useSelector((state) => state.user);
+    const navigate = useNavigate();
 
     const [show, setShow] = useState(false);
 
@@ -16,6 +18,10 @@ const Profile = (props) => {
         address: data.address,
         upi_id: data.upi_id,
     });
+
+    const submitHandler = ()=>{
+        navigate("/sell")
+    }
 
     return (
         <div className="profileWrapper">
@@ -66,15 +72,9 @@ const Profile = (props) => {
                     </div>
                 </div>
             </form>
-            <form className="upi_id">
-                <div>
-                    <h1>UPI ID</h1>
-                    <div className="inputWrapper">
-                        <label for="upi_id">UPI ID</label>
-                        <input type="text" value={info.upi_id} />
-                    </div>
-                </div>
-            </form>
+            <div className="sell">
+                <button onClick={submitHandler}>Your Want to sell item ?</button>
+            </div>
             {/* <button className="submit" onClick={submiHandler}>
                 Save
             </button> */}

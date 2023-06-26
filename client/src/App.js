@@ -11,87 +11,98 @@ import Cart, { loadCart } from "./components/Carts/Cart.jsx";
 import Search from "./components/SearchBar/Search.jsx";
 import Profile from "./components/Profile/Profile.jsx";
 import Product, { loadProduct } from "./components/Product/Product.jsx";
+import Search2,{searchLoader} from "./components/SearchBar/Search2.jsx";
+import Sell from "./components/Sell/Sell.jsx";
 import Unauthorized from "./components/Unauthorized.jsx";
 
 const router = createBrowserRouter([
-    {
-        path: "/",
+  {
+    path: "/",
+    element: (
+      <>
+        <Header />
+        <Navbar />
+      </>
+    ),
+    errorElement: <Error />,
+    children: [
+      {
+        index: true,
+        loader: loadProducts,
         element: (
-            <>
-                <Header />
-                <Navbar />
-            </>
+          <>
+            <Unauthorized>
+              <Search />
+              <Dashboard />
+            </Unauthorized>
+          </>
         ),
-        errorElement: <Error />,
-        children: [
-            {
-                index: true,
-                loader: loadProducts,
-                element: (
-                    <>
-                        <Unauthorized>
-                            <Search />
-                            <Dashboard />
-                        </Unauthorized>
-                    </>
-                ),
-            },
-            {
-                path: "/:id",
-                loader: loadProduct,
-                element: (
-                    <>
-                        <Search />
-                        <Product />
-                    </>
-                ),
-            },
-            {
-                path: "/cart",
-                element: (
-                    <Unauthorized>
-                        <Cart />
-                    </Unauthorized>
-                ),
-                loader: loadCart,
-            },
-            {
-                path: "/chats",
-                element: (
-                    <Unauthorized>
-                        <Chat />
-                    </Unauthorized>
-                ),
-                loader: loadChat,
-            },
-            {
-                path: "/profile",
-                element: (
-                    <Unauthorized>
-                        <Profile />
-                    </Unauthorized>
-                ),
-            },
-        ],
-    },
-    {
-        path: "/login",
+      },
+      {
+        path: "/search",
+        loader: searchLoader,
+        element: <Search2 />,
+      },
+      {
+        path: "/sell",
+        element: <Sell />,
+      },
+      {
+        path: "/:id",
+        loader: loadProduct,
         element: (
-            <>
-                <Header />
-                <Login />
-            </>
+          <>
+            <Search />
+            <Product />
+          </>
         ),
-    },
-    {
-        path: "/signup",
+      },
+      {
+        path: "/cart",
         element: (
-            <>
-                <Header />
-                <Signup />
-            </>
+          <Unauthorized>
+            <Cart />
+          </Unauthorized>
         ),
-    },
+        loader: loadCart,
+      },
+      {
+        path: "/chats",
+        element: (
+          <Unauthorized>
+            <Chat />
+          </Unauthorized>
+        ),
+        loader: loadChat,
+      },
+      {
+        path: "/profile",
+        element: (
+          <Unauthorized>
+            <Profile />
+          </Unauthorized>
+        ),
+      },
+    ],
+  },
+  {
+    path: "/login",
+    element: (
+      <>
+        <Header />
+        <Login />
+      </>
+    ),
+  },
+  {
+    path: "/signup",
+    element: (
+      <>
+        <Header />
+        <Signup />
+      </>
+    ),
+  },
 ]);
 
 const App = () => {

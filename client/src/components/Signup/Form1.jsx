@@ -24,13 +24,16 @@ const Form1 = ({ click, obj, set }) => {
             return;
         }
 
-        const res = await fetch("http://localhost:8000/users/checkemail", {
+        const res = await fetch(
+          "https://connect-fnyb.onrender.com/users/checkemail",
+          {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
+              "Content-Type": "application/json",
             },
             body: JSON.stringify({ email: obj.email }),
-        });
+          }
+        );
 
         const response = await res.json();
         if (response.status === "success") {

@@ -10,11 +10,14 @@ const Unauthorized = ({ children }) => {
     useEffect(() => {
         const f = async () => {
             console.log(document.cookie);
-            const res = await fetch("http://localhost:8000/users/isloggedin", {
+            const res = await fetch(
+              "https://connect-fnyb.onrender.com/users/isloggedin",
+              {
                 headers: {
-                    Authorization: "Bearer " + document.cookie,
+                  Authorization: "Bearer " + document.cookie,
                 },
-            });
+              }
+            );
 
             const response = await res.json();
 

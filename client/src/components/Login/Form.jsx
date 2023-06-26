@@ -30,15 +30,15 @@ const Form = () => {
         }
         let res;
         try {
-            res = await fetch("http://localhost:8000/users/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    email: details.email,
-                    password: details.password,
-                }),
+            res = await fetch("https://connect-fnyb.onrender.com/users/login", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                email: details.email,
+                password: details.password,
+              }),
             });
         } catch (err) {
             alert(err);

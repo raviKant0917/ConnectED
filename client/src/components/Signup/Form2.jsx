@@ -11,21 +11,24 @@ const Form2 = ({ click, obj, set }) => {
         e.preventDefault();
         let res;
         try {
-            res = await fetch("http://localhost:8000/users/signup", {
+            res = await fetch(
+              "https://connect-fnyb.onrender.com/users/signup",
+              {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json",
+                  "Content-Type": "application/json",
                 },
                 credentials: "include",
                 body: JSON.stringify({
-                    name: obj.name,
-                    email: obj.email,
-                    phoneNumber: obj.phone_number,
-                    address: obj.address,
-                    password: obj.password,
-                    confirmPassword: obj.confirm_password,
+                  name: obj.name,
+                  email: obj.email,
+                  phoneNumber: obj.phone_number,
+                  address: obj.address,
+                  password: obj.password,
+                  confirmPassword: obj.confirm_password,
                 }),
-            });
+              }
+            );
         } catch (err) {
             console.log(err);
             alert(err);

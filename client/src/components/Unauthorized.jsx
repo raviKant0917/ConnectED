@@ -1,32 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Navigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../store";
 
 const Unauthorized = ({ children }) => {
-    const [auth, setAuth] = useState(true);
+    const auth = useSelector((state) => state.isAuthenticated);
     const dispatch = useDispatch();
 
     useEffect(() => {
         const f = async () => {
-            const res = await fetch("http://localhost:8000/users/getMe", {
+            const res = await fetch("http://localhost:8000/users/isloggedin", {
                 headers: {
-                    Autherization: "Bearer " + localStorage.getItem("token"),
+                    Authorization: "Bearer " + document.cookie,
                 },
             });
 
             const response = await res.json();
-            setAuth(response);
+
+            if (response.status == true) {
+                dispatch(authActions.auth(true));
+            }
         };
         f();
     }, []);
-
-    dispatch(authActions.login({ name: "", image: "" }));
-    return localStorage.getItem("token") != null ? (
-        <> {children}</>
-    ) : (
-        <Navigate to="/signup" />
-    );
+    return auth ? <> {children}</> : <Navigate to="/signup" />;
 };
 
 export default Unauthorized;

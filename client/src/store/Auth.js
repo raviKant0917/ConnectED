@@ -21,6 +21,9 @@ const authSlice = createSlice({
         },
     },
     reducers: {
+        auth(state, action) {
+            state.isAuthenticated = action.payload;
+        },
         login(state, action) {
             state.isAuthenticated = true;
             const obj = action.payload;

@@ -35,7 +35,7 @@ router
 
 router
     .route('/getMe')
-    .get(userController.getMe);
+    .get(jwtAuth, userController.getMe);
 
 router
   .route('/:id')

@@ -11,9 +11,10 @@ const jwtAuth = async (req, res, next) => {
         token = token.split(" ")[1];
         try {
             console.log(token);
-            const user = await jwt.verify(token, process.env.JWT_SECRET);
+            const user = await jwt.verify(token, process.env.JWT_SECRET, (err, decode));
             console.log(user);
             console.log("token verified");
+            req.id = 
             next();
         } catch (e) {
             res.status(401).json({

@@ -45,7 +45,7 @@
             background-color: #7fe787;
             color: black;
             margin: 0 10px 10px auto;
-            >div{
+            > div {
                 min-height: fit-content;
             }
         }
@@ -90,98 +90,3 @@
         }
     }
 }
-
-// .chats {
-//     width: calc(100% - 18vw);
-//     position: relative;
-//     overflow: hidden scroll;
-//     height: 100%;
-//     border-radius: 20px;
-//     border: 6px solid #00000055;
-//     .chat-profile {
-//         background: linear-gradient(to right bottom, #000, #00000026);
-//         display: flex;
-//         margin: 0px auto 20px;
-//         align-items: center;
-//         padding: auto 40px;
-//         border-bottom: 4px solid #ffffff55;
-//         > img {
-//             width: 100px;
-//             height: 100px;
-//             border-radius: 50%;
-//             padding: 10px;
-//         }
-//     }
-//     .chat-wrapper {
-//         padding-bottom: 70px;
-//     }
-//     .chat {
-//         width: fit-content;
-//         padding: 10px 20px;
-//         margin: 10px;
-//         border-radius: 10px;
-//         color: white;
-//         display: block;
-//         font-weight: 500;
-//         background-color: #000000aa;
-//     }
-//     .you {
-//         color: black;
-//         background-color: #7fe787;
-//         margin: 10px 10px 10px auto;
-//     }
-
-//     // .text-input {
-//     //     position: fixed;
-//     //     bottom: 40px;
-//     //     right: 35px;
-//     //     width: calc(100% - 660px);
-//     //     color: black;
-//     //     background-color: #000000aa;
-//     //     font-size: 50px;
-//     //     border-radius: 0 0 20px 20px;
-//     //     padding: 10px;
-//     //     display: flex;
-//     //     justify-content: space-evenly;
-//     //     > input {
-//     //         background: #ffffff55;
-//     //         font-size: 20px;
-//     //         color: white;
-//     //         width: 90%;
-//     //         padding: 10px;
-//     //         border-radius: 10px;
-//     //         &::placeholder {
-//     //             color: white;
-//     //         }
-//     //     }
-//     //     > svg {
-//     //         padding: 10px;
-//     //         background-color: #7fe787;
-//     //         border-radius: 50%;
-//     //         cursor: pointer;
-//     //     }
-//     // }
-// }
-
-// .chats::before {
-//     content: "";
-//     position: fixed;
-//     width: calc(100vw - 660px);
-//     height: calc(100vh - 160px);
-//     border-radius: 20px;
-//     background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVb_svx38N7ZUq7gXcKDA_UwmQeawl01d17g&usqp=CAU");
-//     background-size: contain;
-//     background-attachment: fixed;
-//     filter: blur(5px);
-//     background-position-y: 75%;
-//     z-index: -1;
-// }
-
-// @media (max-width: 900px) {
-//     .chats {
-//         width: calc(100% - 250px);
-//         .text-input {
-//             width: calc(100% - 560px);
-//         }
-//     }
-// }

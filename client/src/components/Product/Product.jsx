@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Products.scss";
-import { Navigate, useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import Star from "./Star";
 import Error from "../Error/Error";
 import Review from "./Review";

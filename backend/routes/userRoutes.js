@@ -13,6 +13,10 @@ router
   .post(authController.login);
 
 router
+  .route('/isloggedin')
+  .get(authController.protect,userController.isloggedin)
+
+router
   .route('/forgotPassword')
   .post(authController.forgotPassword);
 
@@ -40,9 +44,5 @@ router
 router
     .route('/checkemail')
     .post(authController.checkEmailExists);
-
-router
-    .route('/isloggedin')
-    .get(authController.protect,userController.isloggedin)
   
 module.exports=router;

@@ -1,0 +1,95 @@
+.sellWrapper {
+  position: absolute;
+  right: 30px;
+  width: calc(100% - 180px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  flex-direction: column;
+  > form {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    > label {
+      align-self: flex-start;
+      margin-bottom: 0.5rem;
+    }
+    > textarea {
+      margin-bottom: 1rem;
+      padding: 0.3rem;
+      border-radius: 5px;
+      width: 100%;
+      padding: 0.7rem;
+      border: 1px solid #ffffff55;
+      background: linear-gradient(to right, #ffffff75, #ffffff66);
+      color: white;
+
+      &::placeholder {
+        color: rgb(233, 225, 225);
+        margin-top: 0;
+        padding: 0;
+      }
+    }
+
+    > input {
+      margin-bottom: 1rem;
+      padding: 0.3rem;
+      border-radius: 5px;
+      width: 100%;
+      padding: 0.7rem;
+      border: 1px solid #ffffff55;
+      background: linear-gradient(to right, #ffffff75, #ffffff66);
+      color: white;
+
+      &::placeholder {
+        color: rgb(233, 225, 225);
+        margin-top: 0;
+        padding: 0;
+      }
+    }
+    // > input[type="file"] {
+    //   color: rgba(0, 0, 0, 0);
+    //   &::placeholder {
+    //     color: rgb(233, 225, 225);
+    //     margin-top: 0;
+    //     padding: 0;
+    //   }
+    // }
+    > :nth-child(6) {
+      height: 15vh;
+    }
+    > input[type="submit"] {
+      padding: 1rem 0.5rem;
+      font-size: 20px;
+      font-weight: bolder;
+      color: black;
+      background: linear-gradient(to right, #7fe786, #58a7fe);
+      width: 55vw;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      margin-top: 0.1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+  }
+  .file::-webkit-file-upload-button {
+    visibility: hidden;
+  }
+}
+@media (max-width: 900px) {
+  .sellWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    > form {
+        width: 70%;
+      > input[type="submit"] {
+        width: 25vw;
+      }
+    }
+  }
+}

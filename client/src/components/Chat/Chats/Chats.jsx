@@ -66,10 +66,10 @@
 // //                     onInput={(e) => setChat(e.target.value)}
 // //                 />
 
-// //                 <BiSend onClick={clickHandler} />
-// //             </div>
-// //         </div>
-// //     );
-// // };
+//                 <BiSend onClick={clickHandler} />
+//             </div>
+//         </div>
+//     );
+// };
 
 // export default Chats;

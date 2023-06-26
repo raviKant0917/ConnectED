@@ -46,7 +46,7 @@ const Form = () => {
         }
 
         const response = await res.json();
-
+        localStorage.setItem("token", response.token);
         console.log(response);
         dispatch(
             authActions.login({
@@ -60,6 +60,7 @@ const Form = () => {
             Navigate("/");
         }
     };
+
     const keyHandler = (e) => {
         if (e.key === "Enter") {
             submitHandler();

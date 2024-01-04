@@ -6,7 +6,7 @@ const List = (props) => {
     return (
         <div className="products">
             {Object.keys(data).map((key, index) => (
-                <div>
+                <div key={index}>
                     <span className="heading">
                         <h1>{key}</h1>
                     </span>
@@ -19,8 +19,9 @@ const List = (props) => {
                                     {data[key].length === 0 ? (
                                         <span>Nothing to show</span>
                                     ) : (
-                                        data[key].map((item) => (
+                                        data[key].map((item, index) => (
                                             <Card
+                                                key={index}
                                                 className="card"
                                                 id={item.id}
                                                 image={item.image}

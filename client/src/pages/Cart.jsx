@@ -1,14 +1,44 @@
 import React, { useEffect, useState } from "react";
-import { cart as getArray } from "../Components/httpRequest";
+import Card from "../Components/Card2";
+import { Request } from "../Components";
 
 const Cart = () => {
-    const [cart, setCart] = useState([]);
+    const [data, setData] = useState({});
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
-        getArray(setCart);
+        Request.cart(setData, setLoading);
     }, []);
     return (
         <>
-            <div>Cart</div>
+            {!loading && (
+                <div className="cartWrapper">
+                    {Object.keys(data).map((key, i) => (
+                        <div key={i}>
+                            <h1>
+                                <span className="Heading">
+                                    Product for {key}:
+                                </span>
+                            </h1>
+                            <div className="cardWrapper">
+                                {data[key].length === 0 ? (
+                                    <div>Nothing to show</div>
+                                ) : (
+                                    data[key].map((item, index) => (
+                                        <Card
+                                            key={index}
+                                            id={item._id}
+                                            image={item.images[0]}
+                                            price={item.price}
+                                            product={item.name}
+                                            rent={item.rent}
+                                        />
+                                    ))
+                                )}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            )}
         </>
     );
 };

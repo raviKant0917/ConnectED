@@ -8,9 +8,10 @@ import {
     Search,
     Signup,
     Profile,
+    Chat,
 } from "./pages";
 import { Header, Navbar } from "./Components";
-import { Auth } from "./Components";
+import * as Auth from "./Components/AuthContext";
 
 const router = createBrowserRouter([
     {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
             {
                 path: "/cart",
                 element: <Cart />,
+            },
+            {
+                path: "/chats",
+                element: <Chat />,
             },
             {
                 path: "/profile",

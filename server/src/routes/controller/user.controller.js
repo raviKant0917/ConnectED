@@ -3,6 +3,7 @@ const userModel = require("../../model/user.model.js");
 const asynchandler = require("express-async-handler");
 const jwt = require("jsonwebtoken");
 const ProductModel = require("../../model/Product.model.js");
+const transactionModel = require("../../model/transaction.model.js");
 
 const register = asynchandler(async (req, res) => {
     const { name, email, password, address } = req.body;
@@ -106,7 +107,24 @@ const changePassword = asynchandler(async (req, res) => {
 const getCart = asynchandler(async (req, res) => {
     const { id } = req.body.user;
     const cart = await ProductModel.find({ seller: id });
-    res.json(cart);
+    const cart2 = await transactionModel.find({ buyer: id });
+    let carts = { sell: [], rent: [], bought: [], rented: [] };
+    for (let x of cart) {
+        if (x.rent) {
+            carts.rent.push(x);
+        } else {
+            carts.sell.push(x);
+        }
+    }
+    for (let x of cart2) {
+        const obj = await ProductModel.findById(x.product);
+        if (obj.rent) {
+            carts.rented.push(obj);
+        } else {
+            carts.bought.push(obj);
+        }
+    }
+    res.json(carts);
 });
 
 const getById = asynchandler(async (req, res) => {

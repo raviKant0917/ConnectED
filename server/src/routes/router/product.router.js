@@ -7,6 +7,7 @@ const {
     getProductById,
     updateProduct,
     deleteProduct,
+    giveRating,
 } = require("../controller/product.controller");
 
 const productRouter = Router();
@@ -20,6 +21,6 @@ productRouter
     .route("/:id")
     .get(getProductById) // get product by id
     .put(validateToken, updateProduct) // update product
-    .delete(validateToken, deleteProduct); // delete product
-
+    .delete(validateToken, deleteProduct) // delete product
+    .post(validateToken, giveRating); //give a rating
 module.exports = productRouter;

@@ -29,10 +29,10 @@ const Profile = (props) => {
                     <h1>Profile</h1>
                     <img src={data.image} alt="profile" />
                     <div className="inputWrapper">
-                        <label for="name">Full Name</label>
+                        <label htmlFor="name">Full Name</label>
                         <input type="text" value={info.name} />
 
-                        <label for="Address">Address</label>
+                        <label htmlFor="Address">Address</label>
                         <input type="text" value={info.address} />
                     </div>
                 </div>
@@ -41,9 +41,9 @@ const Profile = (props) => {
                 <div>
                     <h1>Personal Information</h1>
                     <div className="inputWrapper">
-                        <label for="email">Email</label>
+                        <label htmlFor="email">Email</label>
                         <input type="email" value={info.email} />
-                        <label for="password">Password </label>
+                        <label htmlFor="password">Password </label>
                         <div className="password">
                             <input type="password" value={info.password} />
                             {/* {!show && (

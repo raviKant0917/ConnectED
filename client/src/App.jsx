@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import {
     Cart,
@@ -12,6 +12,8 @@ import {
 } from "./pages";
 import { Header, Navbar } from "./Components";
 import * as Auth from "./Components/AuthContext";
+import io from "socket.io-client";
+const socket = io(`http://localhost:5000/message`);
 
 const router = createBrowserRouter([
     {
@@ -57,6 +59,7 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
+    useEffect(() => {}, []);
     return (
         <Auth.AuthProvider>
             <RouterProvider router={router} />;

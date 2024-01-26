@@ -18,8 +18,8 @@ conversatinRouter
 conversatinRouter.route("/message").post(validateToken, sendMessage);
 conversatinRouter.get("/:conversationId", validateToken, getMessage);
 
-const sockets = (socket) => {
-    console.log(`new user connected ${socket.id}`);
-};
+// const sockets = (socket) => {
+//     console.log(`new user connected ${socket.id}`);
+// };
 
-module.exports = { conversatinRouter, sockets };
+module.exports = { conversatinRouter };

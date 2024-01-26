@@ -144,3 +144,66 @@ export const displayRazor = async (data, user) => {
     const paymentObject = new window.Razorpay(options);
     paymentObject.open();
 };
+
+export const getContacts = async (set, loading) => {
+    const token = Cookies.get("token");
+
+    const res = await fetch("http://localhost:5000/conversation", {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    if (res.status === 200) {
+        const response = await res.json();
+        set(response);
+    }
+    loading(false);
+};
+
+export const getMessage = async (id, set, loading) => {
+    const token = Cookies.get("token");
+    const res = await fetch(`http://localhost:5000/conversation/${id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    if (res.status === 200) {
+        const response = await res.json();
+        set(response);
+    }
+    loading(false);
+};
+
+export const sendMessage = async (
+    message,
+    id,
+    senderId,
+    userId,
+    set,
+    socket
+) => {
+    const token = Cookies.get("token");
+    console.log(message);
+    const res = await fetch(`http://localhost:5000/conversation/message`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+            conversationId: id,
+            message,
+        }),
+    });
+    if (res.status === 200) {
+        set((t) => [...t, { message, senderId: senderId }]);
+        socket.emit("sendMessage", {
+            message,
+            senderId,
+            receiverId: userId,
+            conversationId: id,
+        });
+    } else {
+        alert("Could not send message");
+    }
+};

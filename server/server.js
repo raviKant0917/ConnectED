@@ -12,9 +12,34 @@ const io = require("socket.io")(server, {
     },
 }).of("/message");
 
-io.on(
-    "connection",
-    require("./src/routes/router/conversation.router.js").sockets
-);
+const users = [];
+io.on("connection", (socket) => {
+    socket.on("addUser", (userId) => {
+        const userExist = users.find((user) => user.userId === userId);
+        if (!userExist) {
+            console.log("User connected", userId);
+            const user = { userId, socketId: socket.id };
+            users.push(user);
+            io.emit("getUsers", users);
+        }
+    });
+    socket.on("disconnect", () => {
+        users.filter((user) => user.socketId !== socket.id);
+        io.emit("getUsers", users);
+    });
+    socket.on(
+        "sendMessage",
+        ({ message, senderId, receiverId, conversationId }) => {
+            const user = users.find((user) => user.userId === receiverId);
+            if (user) {
+                io.to(user.socketId).emit("getMessage", {
+                    senderId,
+                    conversationId,
+                    message,
+                });
+            }
+        }
+    );
+});
 const port = process.env.PORT || 8000;
 connect(server, port);

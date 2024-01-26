@@ -1,18 +1,25 @@
 import React from "react";
 
-const Contacts = ({ data, set }) => {
+const Contacts = ({ online, data, set }) => {
     return (
         <div className="contacts">
-            {Object.keys(data).map((key, i) => (
-                <div className="contact" key={i} onClick={() => set(key)}>
-                    <img src={data[key].image} alt={key} />
+            {data.map((key, i) => (
+                <div className="contact" key={i} onClick={() => set(i)}>
+                    <img src={key.image} alt={key.name} />
                     <div className="contact-info">
-                        <h4>{key}</h4>
-                        <div>
-                            {data[key].chats.length !== 0 &&
-                                data[key].chats[data[key].chats.length - 1]
-                                    .text}
-                        </div>
+                        <h4>{key.name}</h4>
+                        {console.log(
+                            online.forEach((element) => {
+                                if (element.userId === key.userId) {
+                                    return "online";
+                                }
+                            })
+                        )}
+                        {online.forEach((element) => {
+                            if (element.userId === key.userId) {
+                                return <div>online</div>;
+                            }
+                        })}
                     </div>
                 </div>
             ))}

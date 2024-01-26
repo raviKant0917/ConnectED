@@ -30,9 +30,24 @@ const getContacts = asynchandler(async (req, res) => {
             const user = await userModel.findById(x.members[1], {
                 name: 1,
                 image: 1,
-                _id: 0,
             });
-            contacts.push(user);
+            contacts.push({
+                name: user.name,
+                image: user.image,
+                id: x.id,
+                userId: user._id,
+            });
+        } else {
+            const user = await userModel.findById(x.members[0], {
+                name: 1,
+                image: 1,
+            });
+            contacts.push({
+                name: user.name,
+                image: user.image,
+                id: x.id,
+                userId: user._id,
+            });
         }
     }
     res.json(contacts);

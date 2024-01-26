@@ -5,4 +5,5 @@ import Form from "./Form";
 import Card from "./Card";
 import Review from "./Review";
 import Star from "./Star";
-export { Header, Navbar, Request, Form, Card, Review, Star };
+import { SocketProvider } from "./SocketContext";
+export { Header, Navbar, Request, Form, Card, Review, Star, SocketProvider };

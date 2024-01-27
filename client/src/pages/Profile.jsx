@@ -1,25 +1,51 @@
-import React, { useState } from "react";
-import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../Components/AuthContext";
+import useDriverPicker from "react-google-drive-picker";
+import { updateImage } from "../Components/httpRequest";
 
-const Profile = (props) => {
-    const { user: data } = useAuth();
+const Profile = () => {
+    const { user: data, updatePfp } = useAuth();
     const navigate = useNavigate();
 
-    const [show, setShow] = useState(false);
-
     const [info, setInfo] = useState({
-        image: data.image,
-        email: data.email,
-        name: data.name,
-        password: data.password,
-        address: data.address,
-        upi_id: data.upi_id,
+        image: "",
+        email: "",
+        name: "",
+        address: "",
     });
+    const [password, setPassword] = useState({
+        currentPassword: "",
+        newPassword: "",
+        rePassword: "",
+    });
+    useEffect(() => {
+        if (data) {
+            setInfo({
+                image: data.image,
+                email: data.email,
+                name: data.name,
+                address: data.address,
+            });
+        }
+    }, [data]);
 
     const submitHandler = () => {
         navigate("/sell");
+    };
+    const google_client_id =
+        "809388333953-mp4ic4ssmigroi4aa1oi98opm2u0cgjt.apps.googleusercontent.com";
+
+    const google_api_key = "AIzaSyAFsd97DLr6omGwTH8Abii7vZG64URbNj4";
+    const [createPicker] = useDriverPicker();
+    const config = {
+        clientId: google_client_id,
+        developerKey: google_api_key,
+        viewId: "DOCS",
+        showUploadView: true,
+        showUploadFolders: true,
+        supportDrives: true,
+        multiselect: true,
     };
 
     return (
@@ -27,13 +53,61 @@ const Profile = (props) => {
             <form className="profile">
                 <div>
                     <h1>Profile</h1>
-                    <img src={data.image} alt="profile" />
+                    <img
+                        src={info.image}
+                        alt="profile"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            createPicker({
+                                ...config,
+                                callbackFunction: async (data) => {
+                                    if (data.action === "picked") {
+                                        const file = `https://drive.google.com/thumbnail?id=${
+                                            data.docs[0].embedUrl.split("/")[5]
+                                        }`;
+                                        console.log(file);
+                                        updateImage(file);
+                                        updatePfp(file);
+                                    }
+                                },
+                            });
+                        }}
+                    />
                     <div className="inputWrapper">
                         <label htmlFor="name">Full Name</label>
-                        <input type="text" value={info.name} />
+                        <input
+                            type="text"
+                            value={info.name}
+                            onChange={(e) => {
+                                setInfo({
+                                    ...info,
+                                    name: e.target.value,
+                                });
+                            }}
+                        />
 
                         <label htmlFor="Address">Address</label>
-                        <input type="text" value={info.address} />
+                        <input
+                            type="text"
+                            value={info.address}
+                            onChange={(e) => {
+                                setInfo({
+                                    ...info,
+                                    address: e.target.value,
+                                });
+                            }}
+                        />
+                        <label htmlFor="email">Email</label>
+                        <input
+                            type="email"
+                            value={info.email}
+                            onChange={(e) => {
+                                setInfo({
+                                    ...info,
+                                    email: e.target.value,
+                                });
+                            }}
+                        />
                     </div>
                 </div>
             </form>
@@ -41,41 +115,53 @@ const Profile = (props) => {
                 <div>
                     <h1>Personal Information</h1>
                     <div className="inputWrapper">
-                        <label htmlFor="email">Email</label>
-                        <input type="email" value={info.email} />
-                        <label htmlFor="password">Password </label>
+                        <label htmlFor="current-Password">
+                            Current Password
+                        </label>
                         <div className="password">
-                            <input type="password" value={info.password} />
-                            {/* {!show && (
-                                <button
-                                    onClick={() =>
-                                        setShow((prevState) => !prevState)
-                                    }
-                                >
-                                    <AiFillEyeInvisible />
-                                </button>
-                            )}
-                            {show && (
-                                <button
-                                    onClick={() =>
-                                        setShow((prevState) => !prevState)
-                                    }
-                                >
-                                    <AiFillEye />
-                                </button>
-                            )} */}
+                            <input
+                                type="password"
+                                value={password.currentPassword}
+                                onChange={(e) => {
+                                    setPassword({
+                                        ...password,
+                                        currentPassword: e.target.value,
+                                    });
+                                }}
+                            />
+                        </div>
+                        <label htmlFor="new-Password">New Password</label>
+                        <div className="password">
+                            <input
+                                type="password"
+                                value={password.newPassword}
+                                onChange={(e) => {
+                                    setPassword({
+                                        ...password,
+                                        newPassword: e.target.value,
+                                    });
+                                }}
+                            />
+                        </div>
+                        <label htmlFor="re-Password">Retype Password</label>
+                        <div className="password">
+                            <input
+                                type="password"
+                                value={password.rePassword}
+                                onChange={(e) => {
+                                    setPassword({
+                                        ...password,
+                                        rePassword: e.target.value,
+                                    });
+                                }}
+                            />
                         </div>
                     </div>
                 </div>
             </form>
             <div className="sell">
-                <button onClick={submitHandler}>
-                    Your Want to sell item ?
-                </button>
+                <button onClick={submitHandler}>Want to sell item ?</button>
             </div>
-            {/* <button className="submit" onClick={submiHandler}>
-                Save
-            </button> */}
         </div>
     );
 };

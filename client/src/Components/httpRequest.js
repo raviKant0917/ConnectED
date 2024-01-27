@@ -227,3 +227,20 @@ export const createRoom = async (userId, redirect) => {
         alert("Could not create room");
     }
 };
+
+export const updateImage = async (image) => {
+    const token = Cookies.get("token");
+    const res = await fetch(`http://localhost:5000/users/update-image`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+            image,
+        }),
+    });
+    if (res.status !== 200) {
+        alert("Could not update image");
+    }
+};

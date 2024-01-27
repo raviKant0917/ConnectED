@@ -7,6 +7,7 @@ const {
     changePassword,
     getCart,
     getById,
+    updateImage,
 } = require("../controller/user.controller");
 const validateToken = require("../../middleware/validateToken");
 
@@ -20,6 +21,7 @@ userRouter
     .put(validateToken, updateUser); // update info of current user
 
 userRouter.post("/change-password", validateToken, changePassword); //change-password
+userRouter.post("/update-image", validateToken, updateImage); //update-image
 userRouter.get("/cart", validateToken, getCart); //get Cart
 userRouter.get("/:id", getById); // get User by Id
 

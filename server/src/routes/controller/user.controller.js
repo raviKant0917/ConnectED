@@ -142,6 +142,15 @@ const getById = asynchandler(async (req, res) => {
     });
 });
 
+const updateImage = asynchandler(async (req, res) => {
+    const { id } = req.body.user;
+    const { image } = req.body;
+    const user = await userModel.findByIdAndUpdate(id, {
+        $set: { image },
+    });
+    res.json(user);
+});
+
 module.exports = {
     register,
     login,
@@ -150,4 +159,5 @@ module.exports = {
     changePassword,
     getCart,
     getById,
+    updateImage,
 };

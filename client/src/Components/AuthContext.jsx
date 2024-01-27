@@ -13,9 +13,7 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const login = (userData) => {
-        setUser({
-            userData,
-        });
+        setUser(userData);
     };
 
     const logout = () => {
@@ -23,8 +21,12 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
     };
 
+    const updatePfp = (image) => {
+        setUser({ ...user, image });
+    };
+
     return (
-        <AuthContext.Provider value={{ user, login, logout }}>
+        <AuthContext.Provider value={{ user, login, logout, updatePfp }}>
             {children}
         </AuthContext.Provider>
     );

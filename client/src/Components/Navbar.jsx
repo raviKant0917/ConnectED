@@ -55,6 +55,8 @@ const SmallNav = ({ route, image }) => {
 };
 
 const BigNav = ({ route, name, image, logout }) => {
+    const { user } = useAuth();
+    const navigate = useNavigate();
     return (
         <>
             <div className="Navbar">
@@ -92,11 +94,28 @@ const BigNav = ({ route, name, image, logout }) => {
                         Profile
                     </Link>
                 </div>
-                <div className="button">
-                    <button className="Sign_out" onClick={logout}>
-                        SignOut
-                    </button>
-                </div>
+                {user ? (
+                    <div className="button">
+                        <button className="Sign_out" onClick={logout}>
+                            SignOut
+                        </button>
+                    </div>
+                ) : (
+                    <div className="button">
+                        <button
+                            className="Sign_out"
+                            onClick={() => navigate("/login")}
+                        >
+                            login
+                        </button>
+                        <button
+                            className="Sign_out"
+                            onClick={() => navigate("/signup")}
+                        >
+                            signup
+                        </button>
+                    </div>
+                )}
             </div>
             <Outlet />
         </>

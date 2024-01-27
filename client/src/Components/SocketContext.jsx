@@ -7,7 +7,7 @@ export const SocketProvider = ({ children }) => {
     const [socket, setSocket] = useState(null);
 
     useEffect(() => {
-        setSocket(io(`http://localhost:5000/message`));
+        setSocket(io(`${import.meta.env.VITE_BACKEND}/message`));
     }, []);
 
     return (

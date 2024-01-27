@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 
 export const checkAuth = async (set, token) => {
     if (token) {
-        const res = await fetch(`${process.env.VITE_BACKEND}/users`, {
+        const res = await fetch(`${import.meta.env.VITE_BACKEND}/users`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -17,7 +17,7 @@ export const checkAuth = async (set, token) => {
 };
 
 export const Login = async (input, login) => {
-    const res = await fetch(`${process.env.VITE_BACKEND}/users/login`, {
+    const res = await fetch(`${import.meta.env.VITE_BACKEND}/users/login`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -33,7 +33,7 @@ export const Login = async (input, login) => {
 };
 
 export const Register = async (input, login) => {
-    const res = await fetch(`${process.env.VITE_BACKEND}/users/register`, {
+    const res = await fetch(`${import.meta.env.VITE_BACKEND}/users/register`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -51,7 +51,7 @@ export const Register = async (input, login) => {
 export const cart = async (set, setDone) => {
     const token = Cookies.get("token");
     if (token) {
-        const res = await fetch(`${process.env.VITE_BACKEND}/users/cart`, {
+        const res = await fetch(`${import.meta.env.VITE_BACKEND}/users/cart`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -67,7 +67,7 @@ export const cart = async (set, setDone) => {
 };
 
 export const getProduct = async (id, set, setDone) => {
-    const res = await fetch(`${process.env.VITE_BACKEND}/products/${id}`);
+    const res = await fetch(`${import.meta.env.VITE_BACKEND}/products/${id}`);
     if (res.status === 200) {
         const response = await res.json();
         set(response);
@@ -77,7 +77,7 @@ export const getProduct = async (id, set, setDone) => {
 
 export const giveRating = async (data, id) => {
     const token = Cookies.get("token");
-    const res = await fetch(`${process.env.VITE_BACKEND}/products/${id}`, {
+    const res = await fetch(`${import.meta.env.VITE_BACKEND}/products/${id}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -93,7 +93,7 @@ export const giveRating = async (data, id) => {
 export const displayRazor = async (data, user) => {
     const token = Cookies.get("token");
     const res = await fetch(
-        `${process.env.VITE_BACKEND}/transaction/checkout`,
+        `${import.meta.env.VITE_BACKEND}/transaction/checkout`,
         {
             method: "POST",
             headers: {
@@ -122,7 +122,9 @@ export const displayRazor = async (data, user) => {
                 buyer: user.id,
             };
             await fetch(
-                `${process.env.VITE_BACKEND}/transaction/paymentVerification`,
+                `${
+                    import.meta.env.VITE_BACKEND
+                }/transaction/paymentVerification`,
                 {
                     method: "POST",
                     headers: {
@@ -151,7 +153,7 @@ export const displayRazor = async (data, user) => {
 export const getContacts = async (set, loading, socket, user) => {
     const token = Cookies.get("token");
 
-    const res = await fetch(`${process.env.VITE_BACKEND}/conversation`, {
+    const res = await fetch(`${import.meta.env.VITE_BACKEND}/conversation`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -166,11 +168,14 @@ export const getContacts = async (set, loading, socket, user) => {
 
 export const getMessage = async (id, set, loading) => {
     const token = Cookies.get("token");
-    const res = await fetch(`${process.env.VITE_BACKEND}/conversation/${id}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
+    const res = await fetch(
+        `${import.meta.env.VITE_BACKEND}/conversation/${id}`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    );
     if (res.status === 200) {
         const response = await res.json();
         set(response);
@@ -189,7 +194,9 @@ export const sendMessage = async (
     const token = Cookies.get("token");
     console.log(message);
     const res = await fetch(
-        `${process.env.VITE_BACKEND}http://localhost:5000/conversation/message`,
+        `${
+            import.meta.env.VITE_BACKEND
+        }http://localhost:5000/conversation/message`,
         {
             method: "POST",
             headers: {
@@ -217,7 +224,7 @@ export const sendMessage = async (
 
 export const createRoom = async (userId, redirect) => {
     const token = Cookies.get("token");
-    const res = await fetch(`${process.env.VITE_BACKEND}/conversation`, {
+    const res = await fetch(`${import.meta.env.VITE_BACKEND}/conversation`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -236,16 +243,19 @@ export const createRoom = async (userId, redirect) => {
 
 export const updateImage = async (image) => {
     const token = Cookies.get("token");
-    const res = await fetch(`${process.env.VITE_BACKEND}/users/update-image`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-            image,
-        }),
-    });
+    const res = await fetch(
+        `${import.meta.env.VITE_BACKEND}/users/update-image`,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+                image,
+            }),
+        }
+    );
     if (res.status !== 200) {
         alert("Could not update image");
     }

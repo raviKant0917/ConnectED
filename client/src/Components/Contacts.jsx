@@ -1,6 +1,6 @@
 import React from "react";
 
-const Contacts = ({ online, data, set }) => {
+const Contacts = ({ data, set }) => {
     return (
         <div className="contacts">
             {data.map((key, i) => (
@@ -8,18 +8,7 @@ const Contacts = ({ online, data, set }) => {
                     <img src={key.image} alt={key.name} />
                     <div className="contact-info">
                         <h4>{key.name}</h4>
-                        {console.log(
-                            online.forEach((element) => {
-                                if (element.userId === key.userId) {
-                                    return "online";
-                                }
-                            })
-                        )}
-                        {online.forEach((element) => {
-                            if (element.userId === key.userId) {
-                                return <div>online</div>;
-                            }
-                        })}
+                        {key.online && <div>online</div>}
                     </div>
                 </div>
             ))}

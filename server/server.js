@@ -12,7 +12,7 @@ const io = require("socket.io")(server, {
     },
 }).of("/message");
 
-const users = [];
+let users = [];
 io.on("connection", (socket) => {
     socket.on("addUser", (userId) => {
         const userExist = users.find((user) => user.userId === userId);
@@ -20,11 +20,11 @@ io.on("connection", (socket) => {
             console.log("User connected", userId);
             const user = { userId, socketId: socket.id };
             users.push(user);
-            io.emit("getUsers", users);
         }
+        io.emit("getUsers", users);
     });
     socket.on("disconnect", () => {
-        users.filter((user) => user.socketId !== socket.id);
+        users = users.filter((user) => user.socketId !== socket.id);
         io.emit("getUsers", users);
     });
     socket.on(

@@ -145,7 +145,7 @@ export const displayRazor = async (data, user) => {
     paymentObject.open();
 };
 
-export const getContacts = async (set, loading) => {
+export const getContacts = async (set, loading, socket, user) => {
     const token = Cookies.get("token");
 
     const res = await fetch("http://localhost:5000/conversation", {
@@ -155,6 +155,7 @@ export const getContacts = async (set, loading) => {
     });
     if (res.status === 200) {
         const response = await res.json();
+        socket?.emit("addUser", user.id);
         set(response);
     }
     loading(false);
@@ -205,5 +206,24 @@ export const sendMessage = async (
         });
     } else {
         alert("Could not send message");
+    }
+};
+
+export const createRoom = async (userId, redirect) => {
+    const token = Cookies.get("token");
+    const res = await fetch(`http://localhost:5000/conversation`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+            id: userId,
+        }),
+    });
+    if (res.status === 200) {
+        redirect("/chats");
+    } else {
+        alert("Could not create room");
     }
 };

@@ -54,6 +54,7 @@ const getProductById = asyncHandler(async (req, res) => {
         id: product.id,
         image: product.images[0],
         price: product.price,
+        owner_id: seller.id,
         owner_name: seller.name,
         product_name: product.name,
         hostel_name: seller.address,

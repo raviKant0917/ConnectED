@@ -9,7 +9,7 @@ const Profile = ({ user, set }) => {
             </button>
             <img src={user.image} alt={user.name} />
             <h1>{user.name}</h1>
-            <h4>{user.name}</h4>
+            {user.online && <h4>online</h4>}
         </div>
     );
 };

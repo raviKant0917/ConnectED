@@ -3,43 +3,49 @@ import Chats from "../Components/Message";
 import Contacts from "../Components/Contacts";
 import { getContacts } from "../Components/httpRequest";
 import { useSocket } from "../Components/SocketContext";
+import { useAuth } from "../Components/AuthContext";
 
 const Chat = () => {
-    const [width, setWidth] = useState(window.innerWidth);
-    const [user, setUser] = useState("");
-    const [contacts, setContacts] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [online, setOnline] = useState([]);
+    const [width, setWidth] = useState(window.innerWidth); //screen width
+    const [user, setUser] = useState(""); // array index to get chats
+    const [contacts, setContacts] = useState([]); //all the contacts
+    const [loading, setLoading] = useState(true); //loading state
     const { socket } = useSocket();
+    const { user: y } = useAuth();
+
+    useEffect(() => {
+        if (socket && y) {
+            getContacts(setContacts, setLoading, socket, y);
+        }
+    }, [socket, y]);
+
     useEffect(() => {
         if (socket) {
             socket.on("getUsers", (data) => {
-                setOnline(data);
+                setContacts((t) => {
+                    return t.map((y) => {
+                        return {
+                            ...y,
+                            online: data.some((x) => x.userId === y.userId),
+                        };
+                    });
+                });
             });
         }
     }, [socket]);
 
     useEffect(() => {
-        getContacts(setContacts, setLoading);
-    }, []);
-    useEffect(() => {
         window.addEventListener("resize", setWidth(window.innerWidth));
     }, []);
-    console.log(online);
     return (
         <>
             {!loading && (
                 <div className="chats-wrapper">
                     {width >= 900 ? (
                         <>
-                            <Contacts
-                                online={online}
-                                data={contacts}
-                                set={setUser}
-                            />
+                            <Contacts data={contacts} set={setUser} />
                             {user !== "" && (
                                 <Chats
-                                    online={online}
                                     contacts={contacts}
                                     user={user}
                                     set={setUser}
@@ -49,15 +55,10 @@ const Chat = () => {
                     ) : (
                         <>
                             {user === "" && (
-                                <Contacts
-                                    online={online}
-                                    data={contacts}
-                                    set={setUser}
-                                />
+                                <Contacts data={contacts} set={setUser} />
                             )}
                             {user !== "" && (
                                 <Chats
-                                    online={online}
                                     contacts={contacts}
                                     user={user}
                                     set={setUser}

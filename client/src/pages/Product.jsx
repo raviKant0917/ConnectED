@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Star, Review, Request } from "../Components";
-import { displayRazor, getProduct } from "../Components/httpRequest";
+import {
+    createRoom,
+    displayRazor,
+    getProduct,
+} from "../Components/httpRequest";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../Components/AuthContext";
 
@@ -21,7 +25,7 @@ const Product = () => {
     }
 
     const chatHandler = () => {
-        navigate("/chats");
+        createRoom(data.owner_id, navigate);
     };
 
     return (
@@ -60,7 +64,16 @@ const Product = () => {
                     <br />
                     {data.rent && (
                         <>
-                            <div className="give">
+                            <form
+                                onSubmit={(e) => {
+                                    e.preventDefault();
+                                    setRating(0);
+                                    setReview("");
+                                    Request.giveRating({ rating, review }, id);
+                                    getProduct(id, setData, setLoading);
+                                }}
+                                className="give"
+                            >
                                 <h3>Write a Review:</h3>
                                 <div>
                                     Rating:
@@ -98,7 +111,10 @@ const Product = () => {
                                 ></textarea>
                                 <br />
                                 <button
-                                    onClick={() => {
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        setRating(0);
+                                        setReview("");
                                         Request.giveRating(
                                             { rating, review },
                                             id
@@ -108,7 +124,7 @@ const Product = () => {
                                 >
                                     Submit
                                 </button>
-                            </div>
+                            </form>
                             <Review reviews={data.reviews} />
                         </>
                     )}
